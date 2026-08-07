@@ -1,17 +1,16 @@
 import React, {useState, useEffect} from 'react'
+import { Routes, Route } from 'react-router-dom'
+import Header from './components/Header.jsx'
+import Footer from './components/Footer.jsx';
 
 import {
-  Header,
   About,
   Contact,
   Projects,
-} from "./components";
+  Home,
+  ProjectDetail
+} from "./pages/index.js";
 
-// projects
-const projectsData = [
-  { id: 1, title: 'Project One', description: 'A short description here.' },
-  { id: 2, title: 'Project Two', description: 'Another short description.' },
-];
 
 export default function App() {
 // darkmodeToggle
@@ -31,11 +30,20 @@ export default function App() {
   }, [isDark]); 
 
   return (
-    <div className='max-w-4xl mx-auto space-y-6 px-4'>
-      <Header name="Mr Ankit" isDark={isDark} toggleTheme={toggleTheme}/>
-      <About bio="I am a developer learning React." isDark={isDark} />
-      <Projects projects={projectsData} isDark={isDark} />
-      <Contact email="ankitsmi.7557@gmail.com" isDark={isDark} />
+    <div className='min-h-screen'>
+      <Header name="Mr Ankit" isDark={isDark} toggleTheme={toggleTheme}/> 
+
+    <main className="max-w-4xl mx-auto px-4 space-y-6">
+      <Routes>
+        <Route path="/" element={<Home isDark={isDark} />} />
+        <Route path="/about" element={<About isDark={isDark} />} />
+        <Route path="/projects" element={<Projects isDark={isDark} />} />
+          <Route path="/projects/:id" element={<ProjectDetail />} />
+        <Route path="/contact" element={<Contact email="ankitsmi.7557@gmail.com" isDark={isDark} />} />
+      </Routes>
+    </main>
+    
+      <Footer isDark={isDark} />
     </div>
   )
 }
