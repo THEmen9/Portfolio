@@ -15,6 +15,7 @@ import { Link } from 'react-router-dom';
         setError('Failed to load projects. Please try again later.');
       }else{
         setProjects(projectsData);
+        setError(null);
       }
       setIsLoading(false);
     }, 1000);
