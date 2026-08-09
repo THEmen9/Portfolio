@@ -5,26 +5,31 @@ import { Link } from 'react-router-dom';
  export default function Projects() {
   const [projects, setProjects] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
    const timer = setTimeout(() => {
-      setProjects(projectsData);
+    const didFail = Math.random() < 0.5; // 50% chance of failure
+
+      if(didFail) {
+        setError('Failed to load projects. Please try again later.');
+      }else{
+        setProjects(projectsData);
+      }
       setIsLoading(false);
     }, 1000);
 
     return () => clearTimeout(timer);
   }, []);
 
-  return (
-    <section className="bg-white dark:bg-gray-900 text-black dark:text-white p-4">
-       <h2 >Projects</h2>
-
-        {isLoading ? (
-          <p>Loading projects...</p>
-        ) : (
-          <p>Here are some of my projects:</p>
-        )}
-
+   let content;
+   if(isLoading) {
+    content = <p>Loading Projects...</p>;
+   }else if (error) {
+    content = <p className='text-red-500'>{error}</p>
+   }else {
+    content = (
+      <>
       {projects.map((project) => (
         <Link key={project.id} to={`/projects/${project.id}`}>
           <div className='mb-4 border bg-gray-100 dark:bg-gray-800 p-2 hover:opacity-80 transition'>
@@ -33,6 +38,13 @@ import { Link } from 'react-router-dom';
           </div>
         </Link>
       ))}
+      </>
+    )
+   }
+  return (
+    <section className="bg-white dark:bg-gray-900 text-black dark:text-white p-4">
+       <h2 >Projects</h2>
+       {content}
     </section>
   );
 }
