@@ -1,21 +1,24 @@
-import React,{useState} from 'react'
-  // import { useForm, SubmitHandler } from "react-hook-form"
+import React,{useState, useEffect} from 'react'
 
 export default function Contact({email}) {
-  const [errors, setErrors] = useState({});
+  const [error, setError] = useState({});
+  const [formData, setFormData] = useState({
+    name: '',
+    email:'',
+    message: '',
+  })
 
-  function validate() {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState(null);
+  const [submitSuccess, setSubmitSuccess] = useState(false);
+
+ function validate() {
     const newErrors = {};
     if (!formData.name.trim()) newErrors.name = "Name is required";
     if (!formData.email.trim()) newErrors.email = "Email is required";
     if (!formData.message.trim()) newErrors.message = "Message is required";
     return newErrors;
 }
-  const [formData, setFormData] = useState({
-    name: '',
-    email:'',
-    message: '',
-  })
 
   const handleChange = (e) => {
     setFormData({
@@ -29,12 +32,34 @@ export default function Contact({email}) {
     const newErrors = validate();
 
     if (Object.keys(newErrors).length > 0) {
-      setErrors(newErrors);
+      setError(newErrors);
       return;
     }
-    setErrors({});
-    console.log('Form submitted:', formData);
+
+    setError({});
+    setIsSubmitting(true);
+    setSubmitSuccess(false); 
+    setSubmitError(null);
+
+    const timer = setTimeout(() => { 
+      const didFail = Math.random() < 0.5; // 50% chance of failure
+      if(didFail) {
+        setSubmitError('Failed to send message. Please try again later.');
+      }else{
+        setSubmitSuccess(true)
+        setFormData({ name: '', email: '', message: '' });
+      }
+      setIsSubmitting(false);
+     }, 1000);
+
   }
+
+  useEffect(() => {
+    if (submitSuccess) {
+      const timer = setTimeout(() => setSubmitSuccess(false), 3000); // 3 second baad hide
+      return () => clearTimeout(timer);
+    }
+  }, [submitSuccess]);
 
   return (
    <section className="bg-white dark:bg-gray-900 text-black dark:text-white p-6">
@@ -49,8 +74,8 @@ export default function Contact({email}) {
           onChange={handleChange}
           className='w-full p-2 border rounded'
           />
-          {errors.name && (
-            <p className="text-red-500 text-sm mt-1">{errors.name}</p>
+          {error.name && (
+            <p className="text-red-500 text-sm mt-1">{error.name}</p>
           )}
           <input
           type= 'email'
@@ -60,8 +85,8 @@ export default function Contact({email}) {
           onChange={handleChange}
           className='w-full p-2 border rounded'
           />
-          {errors.email && (
-            <p className="text-red-500 text-sm mt-1">{errors.email}</p>
+          {error.email && (
+            <p className="text-red-500 text-sm mt-1">{error.email}</p>
           )}
           <textarea
           name='message'
@@ -70,17 +95,18 @@ export default function Contact({email}) {
           onChange={handleChange}
           className='w-full p-2 border rounded'
           />
-          {errors.message && (
-            <p className="text-red-500 text-sm mt-1">{errors.message}</p>
+          {error.message && (
+            <p className="text-red-500 text-sm mt-1">{error.message}</p>
           )}
+          {submitError && <p className="text-red-500">{submitError}</p>}
+          {submitSuccess && <p className="text-green-500">Message sent successfully!</p>}
           <button
-          type="submit"
-          className="bg-blue-600 text-white px-4 py-2 rounded"
-        >
-          Send
-        </button>
+           disabled={isSubmitting}
+           type='submit' 
+           className="bg-blue-600 text-white px-4 py-2 rounded">
+            {isSubmitting ? 'Sending...' : 'Submit'}
+          </button>
         </form>
    </section>
   )
 }
-
