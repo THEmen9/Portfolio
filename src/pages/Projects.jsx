@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { projectsData } from '../data/content';
 import { Link } from 'react-router-dom';
 
  export default function Projects() {
@@ -8,39 +7,43 @@ import { Link } from 'react-router-dom';
   const [error, setError] = useState(null);
 
   useEffect(() => {
-   const timer = setTimeout(() => {
-    const didFail = Math.random() < 0.5; // 50% chance of failure
-
-      if(didFail) {
-        setError('Failed to load projects. Please try again later.');
-      }else{
-        setProjects(projectsData);
+    async function fetchProjects() {
+      try {
+        setIsLoading(true);
+        const response = await fetch('http://localhost:5000/api/projects');
+          if (!response.ok) {
+            throw new Error(`Server error: ${response.status}`);
+          }
+        const data = await response.json();
+        setProjects(data);
         setError(null);
+      } catch (err) {
+        setError('Failed to load projects. Please try again later.');
+      } finally {
+        setIsLoading(false);
       }
-      setIsLoading(false);
-    }, 1000);
-
-    return () => clearTimeout(timer);
+    }
+  fetchProjects();
   }, []);
 
    let content;
-   if(isLoading) {
-    content = <p>Loading Projects...</p>;
-   }else if (error) {
-    content = <p className='text-red-500'>{error}</p>
-   }else {
-    content = (
-      <>
-      {projects.map((project) => (
-        <Link key={project.id} to={`/projects/${project.id}`}>
-          <div className='mb-4 border bg-gray-100 dark:bg-gray-800 p-2 hover:opacity-80 transition'>
-            <h3>{project.title}</h3>
-            <p>{project.description}</p>
-          </div>
-        </Link>
-      ))}
-      </>
-    )
+    if(isLoading) {
+      content = <p>Loading Projects...</p>;
+    } else if (error) {
+      content = <p className='text-red-500'>{error}</p>
+    } else {
+      content = (
+        <>
+          {projects.map((project) => (
+            <Link key={project.id} to={`/projects/${project.id}`}>
+              <div className='mb-4 border bg-gray-100 dark:bg-gray-800 p-2 hover:opacity-80 transition'>
+                <h3>{project.title}</h3>
+                <p>{project.description}</p>
+              </div>
+            </Link>
+          ))}
+        </>
+     )
    }
   return (
     <section className="bg-white dark:bg-gray-900 text-black dark:text-white p-4">
