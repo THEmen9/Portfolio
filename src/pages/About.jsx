@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import  {aboutContent}  from '../data/content';
 
 export default function About() {
   const [aboutData, setAboutData] = useState(null);
@@ -7,19 +6,23 @@ export default function About() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const timer = setTimeout(() =>{
-      const didFail = Math.random() < 0.5; // 50% chance of failure
-      
-            if(didFail) {
-              setError('Failed to load Bio. Please try again later.');
-            }else{
-              setAboutData(aboutContent);
-              setError(null);
-            }
-            setIsLoading(false);
-          }, 500);
-      
-    return () => clearTimeout(timer);
+   async function fetchAbout() {
+      try {
+        setIsLoading(true);
+        const response = await fetch('http://localhost:5000/api/about');
+          if (!response.ok) {
+            throw new Error(`Server error: ${response.status}`);
+          }
+        const data = await response.json();
+        setAboutData(data);
+        setError(null);
+      } catch (err) {
+        setError('Failed to load Bio. Please try again later.');
+      } finally {
+        setIsLoading(false);
+      }
+    }
+  fetchAbout();
   }, [])
 
   let content;
