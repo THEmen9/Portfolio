@@ -27,7 +27,7 @@ export default function Contact({email}) {
     })
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const newErrors = validate();
 
@@ -39,18 +39,36 @@ export default function Contact({email}) {
     setError({});
     setIsSubmitting(true);
     setSubmitSuccess(false); 
-    setSubmitError(null);
+    setSubmitError('');
 
-    const timer = setTimeout(() => { 
-      const didFail = Math.random() < 0.5; // 50% chance of failure
-      if(didFail) {
-        setSubmitError('Failed to send message. Please try again later.');
-      }else{
-        setSubmitSuccess(true)
-        setFormData({ name: '', email: '', message: '' });
+    try {
+      const response =  await fetch("http://localhost:5000/api/contact", {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData)
+      })
+
+      if (!response.ok) {
+        throw new Error(`Server error: ${response.status}`);
       }
+       setSubmitSuccess(true);
+
+// reseting form ---------------------//
+      setFormData({
+          name: '',
+          email: '',
+          message: ''
+      });
+
+    } catch (err) {
+
+      setSubmitError(err.message);
+
+    }finally{
+
       setIsSubmitting(false);
-     }, 1000);
+      
+    }
 
   }
 
