@@ -1,30 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
+import useFetch from '../hooks/useFetch'
 
  export default function Projects() {
-  const [projects, setProjects] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    async function fetchProjects() {
-      try {
-        setIsLoading(true);
-        const response = await fetch('http://localhost:5000/api/projects');
-          if (!response.ok) {
-            throw new Error(`Server error: ${response.status}`);
-          }
-        const data = await response.json();
-        setProjects(data);
-        setError(null);
-      } catch (err) {
-        setError('Failed to load projects. Please try again later.');
-      } finally {
-        setIsLoading(false);
-      }
-    }
-  fetchProjects();
-  }, []);
+    const { data: projects, isLoading, error } = useFetch("http://localhost:5000/api/projects");
 
    let content;
     if(isLoading) {
