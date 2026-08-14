@@ -1,17 +1,35 @@
-import React from "react";
-import { NavLink } from 'react-router-dom';
+import React,{useState} from "react";
+import { NavLink, useNavigate } from 'react-router-dom';
 
 
-export default function Header({name, isDark, toggleTheme}) {
+export default function Header({name, isDark, toggleTheme,isAuth, setIsAuth}) {
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    try{
+      const response = await fetch("http://localhost:5000/api/admin/logout", {
+        method: "POST",
+        credentials: "include",
+      });
+      
+      if (response.ok) {
+        setIsAuth(false);
+        navigate("/");
+      }
+    }catch(err) {
+      console.error("Logout failed:", err);
+    }
+  };
 
   return (
     <header className="bg-white dark:bg-gray-900 text-black dark:text-white px-4 py-4">
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
         <h1 className="text-xl font-bold">{name}'s Portfolio</h1>
+
         <button
           type='button'
           onClick={toggleTheme}
-          className="rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm text-gray-700 
+          className="ml-auto rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm text-gray-700 
           transition hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200
           dark:hover:bg-gray-700"
         >
@@ -50,13 +68,26 @@ export default function Header({name, isDark, toggleTheme}) {
         >
           Contact
         </NavLink>
-        <NavLink
-          to="/login"
-          className={({ isActive }) => isActive ? 'text-blue-600 font-semibold' : 
-          'text-gray-600 hover:text-blue-500'}
-        >
-          Login as Admin
-        </NavLink>
+
+        {isAuth ? (
+          <button
+            type="button"
+            onClick={handleLogout}
+            className="ml-auto rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm 
+            text-gray-700 transition hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800
+            dark:text-gray-200 dark:hover:bg-gray-700"
+          >
+            Logout
+          </button>
+        ) : (
+          <NavLink
+            to="/login"
+            className={({ isActive }) => isActive ? 'ml-auto rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm text-gray-700 transition hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-700' : 
+            'ml-auto rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm text-gray-700 transition hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-700'}
+          >
+             Admin
+          </NavLink>
+        )}
       </nav>
     </header>
   )

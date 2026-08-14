@@ -1,7 +1,7 @@
 import React,{useState, useEffect} from 'react'
 import { useNavigate } from 'react-router-dom';
 
-export default function Login() {
+export default function Login({setIsAuth}) {
   const navigate = useNavigate();
   const [error, setError] = useState({});
   const [formData, setFormData] = useState({
@@ -45,12 +45,14 @@ const handleSubmit = async (e) => {
       const response =  await fetch("http://localhost:5000/api/admin/login", {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
+        credentials: "include",
         body: JSON.stringify(formData)
       })
 
       if (!response.ok) {
         throw new Error(`Server error: ${response.status}`);
       }
+       setIsAuth(true);
        setSubmitSuccess(true);
 
 // reseting form ---------------------//
@@ -58,7 +60,8 @@ const handleSubmit = async (e) => {
           email: '',
           password: ''
       });
-    setTimeout(() => navigate('/'), 1000);
+
+    setTimeout(() => navigate('/admin'), 2000);
 
     } catch (err) {
       setSubmitError(err.message);
