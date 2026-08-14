@@ -50,6 +50,13 @@ export default function Header({name, isDark, toggleTheme}) {
         >
           Contact
         </NavLink>
+        <NavLink
+          to="/login"
+          className={({ isActive }) => isActive ? 'text-blue-600 font-semibold' : 
+          'text-gray-600 hover:text-blue-500'}
+        >
+          Login as Admin
+        </NavLink>
       </nav>
     </header>
   )

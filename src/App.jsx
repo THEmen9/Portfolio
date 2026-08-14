@@ -8,7 +8,8 @@ import {
   Contact,
   Projects,
   Home,
-  ProjectDetail
+  ProjectDetail,
+  Login
 } from "./pages/index.js";
 
 
@@ -35,10 +36,11 @@ export default function App() {
 
     <main className="max-w-4xl mx-auto px-4 space-y-6">
       <Routes>
+        <Route path="/login" element={<Login />} />
         <Route path="/" element={<Home isDark={isDark} />} />
         <Route path="/about" element={<About isDark={isDark} />} />
         <Route path="/projects" element={<Projects isDark={isDark} />} />
-          <Route path="/projects/:id" element={<ProjectDetail />} />
+        <Route path="/projects/:id" element={<ProjectDetail />} />
         <Route path="/contact" element={<Contact email="ankitsmi.7557@gmail.com" isDark={isDark} />} />
       </Routes>
     </main>
