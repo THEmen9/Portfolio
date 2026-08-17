@@ -39,7 +39,7 @@ export default function Contact({email}) {
     setError({});
     setIsSubmitting(true);
     setSubmitSuccess(false); 
-    setSubmitError('');
+    setSubmitError(null);
 
     try {
       const response =  await fetch("http://localhost:5000/api/contact", {
@@ -61,20 +61,15 @@ export default function Contact({email}) {
       });
 
     } catch (err) {
-
       setSubmitError(err.message);
-
     }finally{
-
       setIsSubmitting(false);
-      
     }
-
   }
 
   useEffect(() => {
     if (submitSuccess) {
-      const timer = setTimeout(() => setSubmitSuccess(false), 3000); // 3 second baad hide
+      const timer = setTimeout(() => setSubmitSuccess(false), 3000); // hide after 3 second
       return () => clearTimeout(timer);
     }
   }, [submitSuccess]);
