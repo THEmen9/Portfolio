@@ -11,7 +11,8 @@ import {
   Home,
   ProjectDetail,
   Login,
-  AdminDashboard
+  AdminDashboard,
+  EditProject
 } from "./pages/index.js";
 
 
@@ -55,12 +56,13 @@ export default function App() {
     <main className="max-w-4xl mx-auto px-4 space-y-6">
       <Routes>
         <Route path="/login" element={<Login setIsAuth={setIsAuth} />} />
-        <Route path="/admin" element={<ProtectedRoute element={<AdminDashboard />} />} />
+        <Route path="/admin" element={<ProtectedRoute element={<AdminDashboard isDark={isDark}/>} />} />
         <Route path="/" element={<Home isDark={isDark} />} />
         <Route path="/about" element={<About isDark={isDark} />} />
         <Route path="/projects" element={<Projects isDark={isDark} />} />
         <Route path="/projects/:id" element={<ProjectDetail />} />
         <Route path="/contact" element={<Contact email="ankitsmi.7557@gmail.com" isDark={isDark} />} />
+        <Route path="/admin/edit/:id" element={<EditProject isDark={isDark}/>} />
       </Routes>
     </main>
     
