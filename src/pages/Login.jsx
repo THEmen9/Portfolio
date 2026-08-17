@@ -61,7 +61,7 @@ const handleSubmit = async (e) => {
           password: ''
       });
 
-    setTimeout(() => navigate('/admin'), 2000);
+     navigate("/admin");
 
     } catch (err) {
       setSubmitError(err.message);
