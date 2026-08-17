@@ -14,7 +14,7 @@ import useFetch from '../hooks/useFetch'
       content = (
         <>
           {projects.map((project) => (
-            <Link key={project.id} to={`/projects/${project.id}`}>
+            <Link key={project.id} to={`/projects/${project._id}`}>
               <div className='mb-4 border bg-gray-100 dark:bg-gray-800 p-2 hover:opacity-80 transition'>
                 <h3>{project.title}</h3>
                 <p>{project.description}</p>
