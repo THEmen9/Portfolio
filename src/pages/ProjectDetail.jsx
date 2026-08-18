@@ -22,8 +22,72 @@ export default function ProjectDetail() {
   } else {
     content = (
       <>
-        <h2 className="text-2xl font-bold mt-2">{project.title}</h2>
-        <p className="mt-2">{project.description}</p>
+        <div className="mt-4">
+
+          <h2 className="text-2xl font-bold">
+            {project.title}
+          </h2>
+
+          <p className="mt-2">
+            {project.description}
+          </p>
+
+          {/* Images */}
+          <div className="grid gap-4 mt-6">
+            {project.images?.map((image) => (
+              <img
+                src={image}
+                alt={`${project.title}`}
+                className="w-full rounded"
+              />
+            ))}
+          </div>
+
+          {/* Tech Stack */}
+          <div className="mt-6">
+            <h3 className="text-lg font-semibold">
+              Tech Stack
+            </h3>
+
+            <div className="flex flex-wrap gap-2 mt-2">
+              {project.techStack?.map((tech) => (
+                <span
+                  className="px-3 py-1 bg-gray-200 dark:bg-gray-700 rounded"
+                >
+                  {tech}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          {/* Links */}
+          <div className="flex gap-3 mt-6">
+
+            {project.githubLink && (
+              <a
+                href={project.githubLink}
+                target="_blank"
+                rel="noreferrer"
+                className="text-blue-600 hover:underline"
+              >
+                GitHub
+              </a>
+            )}
+
+            {project.liveDemo && (
+              <a
+                href={project.liveDemo}
+                target="_blank"
+                rel="noreferrer"
+                className="text-blue-600 hover:underline"
+              >
+                Live Demo
+              </a>
+            )}
+
+          </div>
+
+        </div>
       </>
     );
   }
