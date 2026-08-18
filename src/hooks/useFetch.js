@@ -1,12 +1,17 @@
 // src/hooks/useFetch.js
 import { useState, useEffect } from "react";
 
-function useFetch(url) {
+export default function useFetch(url, enabled = true) {
   const [data, setData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
+    if (!enabled) {
+      setIsLoading(false);
+    return; // fetch stop
+  }
+
   const controller = new AbortController();
 
   const fetchData = async () => {
@@ -19,9 +24,10 @@ function useFetch(url) {
       if (!response.ok) {
         throw new Error(`Server error: ${response.status}`);
       }
-
+       
       const result = await response.json();
       setData(result);
+
     } catch (err) {
       if (err.name !== "AbortError") {
         setError(err.message);
@@ -36,9 +42,7 @@ function useFetch(url) {
   fetchData();
 
   return () => controller.abort();
-}, [url]);
+}, [url, enabled]);
 
     return { data, isLoading, error };
 }
-
-export default useFetch;
