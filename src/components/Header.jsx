@@ -69,6 +69,16 @@ export default function Header({name, isDark, toggleTheme,isAuth, setIsAuth}) {
           Contact
         </NavLink>
 
+        {isAuth && (
+        <NavLink
+          to="/admin"
+          className={({ isActive }) => isActive ? 'text-blue-600 font-semibold' : 
+          'text-gray-600 hover:text-blue-500'}
+        >
+          Dashboard
+        </NavLink>
+        )}
+
         {isAuth ? (
           <button
             type="button"
