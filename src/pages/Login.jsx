@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 export default function Login({setIsAuth}) {
   const navigate = useNavigate();
-  const [error, setError] = useState({});
+  const [errors, setErrors] = useState({});
   const [formData, setFormData] = useState({
     email:'',
     password: '',
@@ -32,11 +32,11 @@ const handleSubmit = async (e) => {
     const newErrors = validate();
 
     if (Object.keys(newErrors).length > 0) {
-      setError(newErrors);
+      setErrors(newErrors);
       return;
     }
 
-    setError({});
+    setErrors({});
     setIsSubmitting(true);
     setSubmitSuccess(false); 
     setSubmitError('');
@@ -90,7 +90,7 @@ useEffect(() => {
             onChange={handleChange}
             className='w-full p-2 border rounded'
             />
-            {error.email && (
+            {errors.email && (
                 <p className="text-red-500 text-sm mt-1">{error.email}</p>
             )}
             <input
@@ -101,7 +101,7 @@ useEffect(() => {
             onChange={handleChange}
             className='w-full p-2 border rounded'
             />
-            {error.password && (
+            {errors.password && (
                 <p className="text-red-500 text-sm mt-1">{error.password}</p>
             )}
             <button
