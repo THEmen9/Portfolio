@@ -12,7 +12,7 @@ import {
   ProjectDetail,
   Login,
   AdminDashboard,
-  EditProject
+  ProjectForm
 } from "./pages/index.js";
 
 
@@ -62,8 +62,8 @@ export default function App() {
         <Route path="/projects" element={<Projects isDark={isDark} />} />
         <Route path="/projects/:id" element={<ProjectDetail />} />
         <Route path="/contact" element={<Contact email="ankitsmi.7557@gmail.com" isDark={isDark} />} />
-        <Route path="/admin/edit/:id" element={<EditProject isDark={isDark}/>} />
-        <Route path="/admin/add" element={<EditProject isDark={isDark} />} />
+        <Route path="/admin/edit/:id" element={<ProjectForm isDark={isDark}/>} />
+        <Route path="/admin/add" element={<ProjectForm isDark={isDark} />} />
       </Routes>
     </main>
     
