@@ -1,4 +1,4 @@
-import React,{useState} from "react";
+import React from "react";
 import { NavLink, useNavigate } from 'react-router-dom';
 
 
@@ -22,83 +22,90 @@ export default function Header({name, isDark, toggleTheme,isAuth, setIsAuth}) {
   };
 
   return (
-    <header className="bg-white dark:bg-gray-900 text-black dark:text-white px-4 py-4">
-      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+    <header className="sticky top-0 z-50 border-b border-gray-200/70
+    bg-[#E9D8E1]/70 text-black backdrop-blur-md
+    dark:border-gray-800/70 dark:bg-gray-950/80 dark:text-white
+    px-4 py-4">
+
+    <div className="grid grid-cols-3 items-center">
         <h1 className="text-xl font-bold">{name}'s Portfolio</h1>
 
-        <button
-          type='button'
-          onClick={toggleTheme}
-          className="ml-auto rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm text-gray-700 
-          transition hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200
-          dark:hover:bg-gray-700"
-        >
-          {isDark ? "☀️ Light Mode" : "🌙 Dark Mode"}
-        </button>
-      </div>
-
-      <nav className="mt-4 flex flex-wrap items-center gap-4 rounded-lg border border-gray-200
-       bg-gray-50 px-3 py-2 text-sm text-gray-600 dark:border-gray-700 dark:bg-gray-800
+      <nav className="flex items-center gap-6 text-sm text-gray-600
        dark:text-gray-300">
         <NavLink
           to="/"
-          className={({ isActive }) => isActive ? 'text-blue-600 font-semibold' : 
-          'text-gray-600 hover:text-blue-500'}
+          className={({ isActive }) => isActive ? 'rounded-full bg-[#C197D2]/20 px-3 py-1.5 font-semibold text-[#8B5A9B] dark:bg-[#C197D2]/20 dark:text-[#C197D2]'
+          : 'rounded-full px-3 py-1.5 text-gray-600 hover:text-blue-500'}
         >
           Home
         </NavLink>
         <NavLink
           to="/about"
-          className={({ isActive }) => isActive ? 'text-blue-600 font-semibold' : 
-          'text-gray-600 hover:text-blue-500'}
+          className={({ isActive }) => isActive ? 'rounded-full bg-[#C197D2]/20 px-3 py-1.5 font-semibold text-[#8B5A9B] dark:bg-[#C197D2]/20 dark:text-[#C197D2]'
+          : 'rounded-full px-3 py-1.5 text-gray-600 hover:text-blue-500'}
         >
           About
         </NavLink>
         <NavLink
           to="/projects"
-          className={({ isActive }) => isActive ? 'text-blue-600 font-semibold' : 
-          'text-gray-600 hover:text-blue-500'}
+          className={({ isActive }) => isActive ? 'rounded-full bg-[#C197D2]/20 px-3 py-1.5 font-semibold text-[#8B5A9B] dark:bg-[#C197D2]/20 dark:text-[#C197D2]'
+          : 'rounded-full px-3 py-1.5 text-gray-600 hover:text-blue-500'}
         >
           Projects
         </NavLink>
         <NavLink
           to="/contact"
-          className={({ isActive }) => isActive ? 'text-blue-600 font-semibold' : 
-          'text-gray-600 hover:text-blue-500'}
+          className={({ isActive }) => isActive ? 'rounded-full bg-[#C197D2]/20 px-3 py-1.5 font-semibold text-[#8B5A9B] dark:bg-[#C197D2]/20 dark:text-[#C197D2]'
+          : 'rounded-full px-3 py-1.5 text-gray-600 hover:text-blue-500'}
         >
           Contact
         </NavLink>
 
-        {isAuth && (
-        <NavLink
-          to="/admin"
-          className={({ isActive }) => isActive ? 'text-blue-600 font-semibold' : 
-          'text-gray-600 hover:text-blue-500'}
-        >
-          Dashboard
-        </NavLink>
-        )}
-
-        {isAuth ? (
-          <button
-            type="button"
-            onClick={handleLogout}
-            className="ml-auto rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm 
-            text-gray-700 transition hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800
-            dark:text-gray-200 dark:hover:bg-gray-700"
-          >
-            Logout
-          </button>
-        ) : (
-          <NavLink
-            to="/login"
-            className={({ isActive }) => isActive ? 'ml-auto rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm text-gray-700 transition hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-700' : 
-            'ml-auto rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm text-gray-700 transition hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-700'}
-          >
-             Admin
-          </NavLink>
-        )}
+       
       </nav>
+      <div className = "flex shrink-0 items-center justify-end gap-2">
+      {isAuth && (
+          <NavLink
+            to="/admin"
+            className={({ isActive }) => isActive ? 'rounded-full bg-[#C197D2]/20 px-3 py-1.5 font-semibold text-[#8B5A9B] dark:bg-[#C197D2]/20 dark:text-[#C197D2]'
+            : 'rounded-full px-3 py-1.5 text-gray-600 hover:text-blue-500'}
+          >
+            Dashboard
+          </NavLink>
+          )}
+
+          {isAuth ? (
+            <button
+              type="button"
+              onClick={handleLogout}
+              className="rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm 
+              text-gray-700 transition hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800
+              dark:text-gray-200 dark:hover:bg-gray-700"
+            >
+              Logout
+            </button>
+          ) : (
+            <NavLink
+              to="/login"
+              className={({ isActive }) => isActive ? 'rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm text-gray-700 transition hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-700' : 
+              'rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm text-gray-700 transition hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-700'}
+            >
+              Admin
+            </NavLink>
+          )}
+
+          <button
+          type='button'
+          onClick={toggleTheme}
+          className="flex h-9 w-9 items-center justify-center rounded-full border
+          border-gray-300 bg-white text-sm transition hover:bg-gray-100
+          dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700"
+        >
+          {isDark ? "☀️" : "🌙"}
+        </button>
+
+        </div>  
+      </div> 
     </header>
   )
 }

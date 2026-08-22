@@ -91,7 +91,7 @@ useEffect(() => {
             className='w-full p-2 border rounded'
             />
             {errors.email && (
-                <p className="text-red-500 text-sm mt-1">{error.email}</p>
+                <p className="text-red-500 text-sm mt-1">{errors.email}</p>
             )}
             <input
             type= 'password'
@@ -102,7 +102,7 @@ useEffect(() => {
             className='w-full p-2 border rounded'
             />
             {errors.password && (
-                <p className="text-red-500 text-sm mt-1">{error.password}</p>
+                <p className="text-red-500 text-sm mt-1">{errors.password}</p>
             )}
             <button
             disabled={isSubmitting}
