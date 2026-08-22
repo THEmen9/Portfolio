@@ -1,9 +1,14 @@
-import React from 'react';
+import React,{useState} from 'react';
 import { Link } from 'react-router-dom';
 import useFetch from '../hooks/useFetch'
 
  export default function Projects() {
+    const [searchTerm, setSearchTerm] = useState("");
     const { data: projects, isLoading, error } = useFetch("http://localhost:5000/api/projects");
+
+    const handleChange = (e) => {
+    setSearchTerm(e.target.value);
+   };
 
    let content;
     if(isLoading) {
@@ -11,9 +16,16 @@ import useFetch from '../hooks/useFetch'
     } else if (error) {
       content = <p className='text-red-500'>{error}</p>
     } else {
+      const filteredProjects = projects.filter((project) => {
+      const titleMatch = project.title.toLowerCase().includes(searchTerm.toLowerCase());
+      const techMatch = project.techStack.some((tech) =>
+        tech.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+      return titleMatch || techMatch;
+    });
       content = (
         <>
-          {projects.map((project) => (
+          {filteredProjects.map((project) => (
             <Link key={project._id} to={`/projects/${project._id}`}>
               <div className='mb-4 border bg-gray-100 dark:bg-gray-800
                p-2 hover:opacity-80 transition'>
@@ -53,6 +65,15 @@ import useFetch from '../hooks/useFetch'
   return (
     <section className="bg-white dark:bg-gray-900 text-black dark:text-white p-4">
        <h2 >Projects</h2>
+       <input
+        type="text"
+        id="search"
+        name="search"
+        value={searchTerm}
+        onChange={handleChange}
+        placeholder="Search by title or tech..."
+        className="w-full p-2 border rounded mb-4"
+         />
        {content}
     </section>
   );
