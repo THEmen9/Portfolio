@@ -36,6 +36,7 @@ export default function ProjectDetail() {
           <div className="grid gap-4 mt-6">
             {project.images?.map((image) => (
               <img
+                key={image}
                 src={image}
                 alt={`${project.title}`}
                 className="w-full rounded"
@@ -52,6 +53,7 @@ export default function ProjectDetail() {
             <div className="flex flex-wrap gap-2 mt-2">
               {project.techStack?.map((tech) => (
                 <span
+                  key={tech}
                   className="px-3 py-1 bg-gray-200 dark:bg-gray-700 rounded"
                 >
                   {tech}

@@ -15,7 +15,8 @@ import useFetch from '../hooks/useFetch'
         <>
           {projects.map((project) => (
             <Link key={project._id} to={`/projects/${project._id}`}>
-              <div className='mb-4 border bg-gray-100 dark:bg-gray-800 p-2 hover:opacity-80 transition'>
+              <div className='mb-4 border bg-gray-100 dark:bg-gray-800
+               p-2 hover:opacity-80 transition'>
                 
                 {project.images?.[0] && (
                   <img
@@ -36,6 +37,7 @@ import useFetch from '../hooks/useFetch'
                 <div className="flex flex-wrap gap-2 mt-3">
                   {project.techStack?.map((tech) => (
                     <span
+                      key={tech}
                       className="px-2 py-1 text-sm bg-gray-200 dark:bg-gray-700 rounded"
                     >
                       {tech}
