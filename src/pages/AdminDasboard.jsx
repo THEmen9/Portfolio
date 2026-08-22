@@ -9,31 +9,50 @@ export default function AdminDashboard(){
     const navigate = useNavigate();
     const { data: projects, isLoading, error } = useFetch("http://localhost:5000/api/projects");
     
-  const handleDelete = async (projectId) => {
-    try {
-        if (!window.confirm("Are you sure you want to delete this project?")) {
-        return;
-        }
-        setIsDeleting(true);
-        const response = await fetch(`http://localhost:5000/api/projects/${projectId}`,{
-            method: "DELETE",
-            credentials: "include",
-            
+    const handleToggleFeatured = async (projectId, currentValue) => {
+      try {
+        const response = await fetch(`http://localhost:5000/api/projects/${projectId}/featured`, {
+          method: "PATCH",
+          credentials: "include",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ featured: !currentValue }),
         });
-        if (!response.ok) {
-        throw new Error(`Server error: ${response.status}`);
-        }
-        console.log("Project deleted successfully");
-        setProjectList(prev =>
-          prev.filter(project => project._id !== projectId)
-        );
 
-        } catch (err) {
-            console.error(err);
-        } finally {
-        setIsDeleting(false);
+        if (!response.ok) throw new Error(`Server error: ${response.status}`);
+
+       const updatedProject = await response.json();
+       setProjectList(prev => prev.map(p => p._id === projectId ? updatedProject : p));
+
+      } catch (err) {
+        console.error(err);
       }
-  };
+    };
+
+    const handleDelete = async (projectId) => {
+      try {
+          if (!window.confirm("Are you sure you want to delete this project?")) {
+          return;
+          }
+          setIsDeleting(true);
+          const response = await fetch(`http://localhost:5000/api/projects/${projectId}`,{
+              method: "DELETE",
+              credentials: "include",
+              
+          });
+          if (!response.ok) {
+          throw new Error(`Server error: ${response.status}`);
+          }
+          console.log("Project deleted successfully");
+          setProjectList(prev =>
+            prev.filter(project => project._id !== projectId)
+          );
+
+          } catch (err) {
+              console.error(err);
+          } finally {
+          setIsDeleting(false);
+        }
+    };
 
   useEffect(() => {
     if (projects) {
@@ -51,7 +70,15 @@ export default function AdminDashboard(){
         <>
           {projectList.map((project) => (
             <div key={project._id} className='mb-4 border bg-gray-100 dark:bg-gray-800 p-2'>
-                
+                <label htmlFor={`featured-${project._id}`} className="block mb-1 font-medium">
+                 Featured
+                </label >
+                <input
+                  id={`featured-${project._id}`}
+                  type="checkbox"
+                  checked={project.featured || false}
+                  onChange={() => handleToggleFeatured(project._id, project.featured)}
+                />
                 {project.images?.[0] && (
                   <img
                     src={project.images[0]}
@@ -71,7 +98,8 @@ export default function AdminDashboard(){
                 <div className="flex flex-wrap gap-2 mt-3">
                   {project.techStack?.map((tech) => (
                     <span
-                      className="px-2 py-1 text-sm bg-gray-200 dark:bg-gray-700 rounded"
+                    key={tech}
+                    className="px-2 py-1 text-sm bg-gray-200 dark:bg-gray-700 rounded"
                     >
                       {tech}
                     </span>
