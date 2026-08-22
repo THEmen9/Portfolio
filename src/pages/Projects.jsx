@@ -1,6 +1,7 @@
 import React,{useState} from 'react';
 import { Link } from 'react-router-dom';
 import useFetch from '../hooks/useFetch'
+import { GooeyInput } from "../components/ui/gooey-input";
 
  export default function Projects() {
     const [searchTerm, setSearchTerm] = useState("");
@@ -65,15 +66,13 @@ import useFetch from '../hooks/useFetch'
   return (
     <section className="bg-white dark:bg-gray-900 text-black dark:text-white p-4">
        <h2 >Projects</h2>
-       <input
-        type="text"
-        id="search"
-        name="search"
-        value={searchTerm}
-        onChange={handleChange}
+       <GooeyInput
         placeholder="Search by title or tech..."
-        className="w-full p-2 border rounded mb-4"
-         />
+        value={searchTerm}
+        onValueChange={setSearchTerm}
+        collapsedWidth={120}
+        expandedWidth={320}
+      />
        {content}
     </section>
   );
