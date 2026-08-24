@@ -15,10 +15,11 @@ export default function ProjectForm() {
     `http://localhost:5000/api/projects/${id}`,
      isEditMode
     );
+  const [imageFiles, setImageFiles] = useState([]);
   const [formData, setFormData] = useState({
         title: "",
         description: "",
-        images: "",
+  
         techStack: "",
         githubLink: "",
         liveDemo: ""
@@ -28,10 +29,16 @@ export default function ProjectForm() {
     const newErrors = {};
     if (!formData.title.trim()) newErrors.title = "title is required";
     if (!formData.description.trim()) newErrors.description = "description is required";
-    if (!formData.images.trim()) newErrors.images = "images is required";
+    if (imageFiles.length === 0) newErrors.images = "At least one image is required";
     if (!formData.techStack.trim()) newErrors.techStack = "techStack is required";
     return newErrors;
 };
+
+//file handeler//
+  const handleFileChange = (e) => {
+    const filesArray = Array.from(e.target.files);
+    setImageFiles(filesArray)
+  };
 
   const handleChange = (e) => {
     setFormData(prev => ({
@@ -51,6 +58,16 @@ export default function ProjectForm() {
 
   setSubmitStatus("submitting");
 
+    const payload = new FormData();
+    payload.append("title", formData.title);
+    payload.append("description", formData.description);
+    payload.append("githubLink", formData.githubLink);
+    payload.append("liveDemo", formData.liveDemo);
+
+    formData.techStack.split(",").map(t => t.trim()).filter(Boolean)
+      .forEach(tech => payload.append("techStack", tech));
+
+    imageFiles.forEach(file => payload.append("images", file));
   try {
     const response = await fetch(
       isEditMode
@@ -59,21 +76,7 @@ export default function ProjectForm() {
       {
         method: isEditMode ? "PUT" : "POST",
         credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          ...formData,
-          images: formData.images
-            .split(",")
-            .map(item => item.trim())
-            .filter(Boolean),
-
-          techStack: formData.techStack
-            .split(",")
-            .map(item => item.trim())
-            .filter(Boolean),
-        }),
+        body: payload
       }
     );
 
@@ -117,7 +120,6 @@ const handleDelete = async () => {
     setFormData({
       title: fetchedProject.title || "",
       description: fetchedProject.description || "",
-      images: fetchedProject.images.join(", ") || "",
       techStack: fetchedProject.techStack.join(", ") || "",
       githubLink: fetchedProject.githubLink || "",
       liveDemo: fetchedProject.liveDemo || "",
@@ -174,12 +176,11 @@ if (isEditMode && error) {
               Images
             </label >
             <input
-              type= 'text'
+              type= 'file'
               id="images"
+              multiple 
               name='images'
-              placeholder="images URL"
-              value={formData.images}
-              onChange={handleChange}
+              onChange={handleFileChange}
               className='w-full p-2 border rounded'
             />
             {errors.images && (
