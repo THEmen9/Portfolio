@@ -1,3 +1,4 @@
+//------------imports----------//
 import { useState, useEffect } from "react";
 import { useParams, useNavigate  } from "react-router-dom";
 import useFetch from '../hooks/useFetch'
@@ -5,12 +6,14 @@ import Button from "../components/Button";
 
 
 export default function ProjectForm() {
+
   const { id } = useParams();
   const navigate = useNavigate();
   const isEditMode = Boolean(id);
   const [submitStatus, setSubmitStatus] = useState("idle");
   const [isDeleting, setIsDeleting] = useState(false);
   const [errors, setErrors] = useState({});
+
   const { data: fetchedProject, isLoading, error } = useFetch(
     `http://localhost:5000/api/projects/${id}`,
      isEditMode
@@ -19,26 +22,33 @@ export default function ProjectForm() {
   const [formData, setFormData] = useState({
         title: "",
         description: "",
-  
         techStack: "",
         githubLink: "",
         liveDemo: ""
     });  
-  
+//--------------validation---------------//
   function validate() {
     const newErrors = {};
     if (!formData.title.trim()) newErrors.title = "title is required";
     if (!formData.description.trim()) newErrors.description = "description is required";
-    if (imageFiles.length === 0) newErrors.images = "At least one image is required";
+    if (!isEditMode && imageFiles.length === 0) newErrors.images = "At least one image is required";
     if (!formData.techStack.trim()) newErrors.techStack = "techStack is required";
     return newErrors;
 };
 
-//file handeler//
+//----------file handler-------//
+
   const handleFileChange = (e) => {
     const filesArray = Array.from(e.target.files);
     setImageFiles(filesArray)
   };
+
+//----------------------------------------------------------------------------//
+
+  const handleRemoveImage = (indexToRemove) => {
+    setImageFiles(prev => prev.filter((file, index) => index !== indexToRemove));
+  }
+//---------------------------------------------------------------------------//
 
   const handleChange = (e) => {
     setFormData(prev => ({
@@ -47,6 +57,7 @@ export default function ProjectForm() {
     }));
   }
 
+//-----------submit-------------//
   const handleSubmit = async (e) => {
    e.preventDefault();
    const newErrors = validate();
@@ -56,7 +67,7 @@ export default function ProjectForm() {
       return;
     }
 
-  setSubmitStatus("submitting");
+    setSubmitStatus("submitting");
 
     const payload = new FormData();
     payload.append("title", formData.title);
@@ -68,6 +79,7 @@ export default function ProjectForm() {
       .forEach(tech => payload.append("techStack", tech));
 
     imageFiles.forEach(file => payload.append("images", file));
+
   try {
     const response = await fetch(
       isEditMode
@@ -90,7 +102,7 @@ export default function ProjectForm() {
     setSubmitStatus("error");
   }
 };
-
+//-------------------Delete---------------------//
 const handleDelete = async () => {
     try {
         if (!window.confirm("Are you sure you want to delete this project?")) {
@@ -114,7 +126,7 @@ const handleDelete = async () => {
      setIsDeleting(false);
   }
 };
-  
+//---------------------------------------------------------------------//
   useEffect(() => {
   if (fetchedProject) {
     setFormData({
@@ -130,7 +142,6 @@ const handleDelete = async () => {
 if (isEditMode && isLoading) {
   return <p>Loading...</p>;
 }
-
 if (isEditMode && error) {
   return <p className="text-red-500">{error}</p>;
 }
@@ -138,6 +149,7 @@ if (isEditMode && error) {
   return (
     <section className="bg-white dark:bg-gray-900 text-black dark:text-white p-6">
         <form className ='space-y-4 mt-4'onSubmit={handleSubmit} >
+        {/* //-------------------------------Div-1--------------------------------// */}
           <div> 
             <label htmlFor="title" className="block mb-1 font-medium">
               Project Title
@@ -155,6 +167,7 @@ if (isEditMode && error) {
                 <p className="text-red-500 text-sm mt-1">{errors.title}</p>
             )}
           </div>
+        {/* //----------------------------------Div-2---------------------------------// */}
           <div>
             <label htmlFor="description" className="block mb-1 font-medium">
               Description
@@ -171,6 +184,7 @@ if (isEditMode && error) {
                 <p className="text-red-500 text-sm mt-1">{errors.description}</p>
             )}
           </div>
+         {/* //----------------------------------Div-3---------------------------------// */}
           <div>
            <label htmlFor="images" className="block mb-1 font-medium">
               Images
@@ -186,7 +200,28 @@ if (isEditMode && error) {
             {errors.images && (
                 <p className="text-red-500 text-sm mt-1">{errors.images}</p>
             )}
+          {/* --------preview section-------------------*/}
+            <div className="flex flex-wrap gap-2 mt-2">
+              {imageFiles.map((file, index) => (
+                <div key={index} className="relative">
+                  <img
+                    src={URL.createObjectURL(file)}
+                    alt={`preview-${index}`}
+                    className="w-20 h-20 object-cover rounded"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => handleRemoveImage(index)}
+                    className="absolute -top-2 -right-2 bg-red-500 text-white 
+                    rounded-full w-5 h-5 text-xs"
+                  >
+                    ×
+                  </button>
+                </div>
+              ))}
+            </div>
           </div>
+         {/* //----------------------------------Div-4---------------------------------// */}
           <div>
             <label htmlFor="techStack" className="block mb-1 font-medium">
               Tech-Stack
@@ -204,6 +239,7 @@ if (isEditMode && error) {
                 <p className="text-red-500 text-sm mt-1">{errors.techStack}</p>
             )}
           </div>
+         {/* //----------------------------------Div-4---------------------------------// */}
           <div>
             <label htmlFor="githubLink" className="block mb-1 font-medium">
               Github-Link(Optional)
@@ -218,6 +254,7 @@ if (isEditMode && error) {
               className='w-full p-2 border rounded'
             />
           </div>
+         {/* //----------------------------------Div-5---------------------------------// */}
           <div>
             <label htmlFor="liveDemo" className="block mb-1 font-medium">
               liveDemo(Optional)
@@ -232,6 +269,7 @@ if (isEditMode && error) {
               className='w-full p-2 border rounded'
             />
           </div>
+          {/* //----------------------------------Button-1------------------------------// */}
           <Button
             type = "submit"
             size="sm"
@@ -240,9 +278,11 @@ if (isEditMode && error) {
             >
             {submitStatus === "submitting" ? "Saving..." : "Save"}
             </Button>
+          {/* //--------------------------Success/failed-message-----------------------// */}
             {submitStatus === "success" && <p className="text-green-500">Saved successfully!</p>}
             {submitStatus === "error" && <p className="text-red-500">Failed to save.</p>}
 
+          {/* //----------------------------------Button-2-----------------------------// */}
             {isEditMode && (
             <Button 
             type="button"
