@@ -1,4 +1,4 @@
-import React,{useState, useEffect} from 'react'
+import React,{useState} from 'react'
 import { useNavigate } from 'react-router-dom';
 
 export default function Login({setIsAuth}) {
@@ -11,7 +11,6 @@ export default function Login({setIsAuth}) {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState(null);
-  const [submitSuccess, setSubmitSuccess] = useState(false);
 
   function validate() {
     const newErrors = {};
@@ -38,7 +37,6 @@ const handleSubmit = async (e) => {
 
     setErrors({});
     setIsSubmitting(true);
-    setSubmitSuccess(false); 
     setSubmitError('');
 
     try {
@@ -50,10 +48,10 @@ const handleSubmit = async (e) => {
       })
 
       if (!response.ok) {
-        throw new Error(`Server error: ${response.status}`);
+        const data = await response.json();
+        throw new Error(data.error || `Server error: ${response.status}`);
       }
        setIsAuth(true);
-       setSubmitSuccess(true);
 
 // reseting form ---------------------//
       setFormData({
@@ -70,14 +68,6 @@ const handleSubmit = async (e) => {
     }
 };
 
-useEffect(() => {
-    if (submitSuccess) {
-      const timer = setTimeout(() => setSubmitSuccess(false), 3000); // hide after 3 second 
-      return () => clearTimeout(timer);
-    }
-  }, [submitSuccess]);
-
-
   return (
    <section className="bg-white dark:bg-gray-900 text-black dark:text-white p-6">
         <h2>Login</h2>
@@ -90,9 +80,7 @@ useEffect(() => {
             onChange={handleChange}
             className='w-full p-2 border rounded'
             />
-            {errors.email && (
-                <p className="text-red-500 text-sm mt-1">{errors.email}</p>
-            )}
+            {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
             <input
             type= 'password'
             name='password'
@@ -101,9 +89,10 @@ useEffect(() => {
             onChange={handleChange}
             className='w-full p-2 border rounded'
             />
-            {errors.password && (
-                <p className="text-red-500 text-sm mt-1">{errors.password}</p>
-            )}
+
+            {errors.password && <p className="text-red-500 text-sm mt-1">{errors.password}</p>}
+            {submitError && <p className="text-red-500">{submitError}</p>}
+
             <button
             disabled={isSubmitting}
             type='submit' 

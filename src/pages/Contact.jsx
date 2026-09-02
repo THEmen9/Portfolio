@@ -53,7 +53,8 @@ export default function Contact({email}) {
       })
 
       if (!response.ok) {
-        throw new Error(`Server error: ${response.status}`);
+        const data = await response.json();
+        throw new Error(data.error || `Server error: ${response.status}`);
       }
        setSubmitSuccess(true);
 
@@ -82,8 +83,8 @@ export default function Contact({email}) {
    <section className="bg-white dark:bg-gray-900 text-black dark:text-white p-6">
         <h2>Contact</h2>
         <p>Email me at : {email} </p>
-        <form onSubmit={handleSubmit} className ='space-y-4 mt-4'>
-          <input
+      <form onSubmit={handleSubmit} className ='space-y-4 mt-4'>
+        <input
           type= 'text'
           name='name'
           placeholder='Your Name'
@@ -91,10 +92,8 @@ export default function Contact({email}) {
           onChange={handleChange}
           className='w-full p-2 border rounded'
           />
-          {error.name && (
-            <p className="text-red-500 text-sm mt-1">{error.name}</p>
-          )}
-          <input
+          {error.name && <p className="text-red-500 text-sm mt-1">{error.name}</p>}
+        <input
           type= 'email'
           name='email'
           placeholder='Your Email'
@@ -102,28 +101,25 @@ export default function Contact({email}) {
           onChange={handleChange}
           className='w-full p-2 border rounded'
           />
-          {error.email && (
-            <p className="text-red-500 text-sm mt-1">{error.email}</p>
-          )}
-          <textarea
+          {error.email && <p className="text-red-500 text-sm mt-1">{error.email}</p>}
+        <textarea
           name='message'
           placeholder='Your Message'
           value={formData.message}
           onChange={handleChange}
           className='w-full p-2 border rounded'
           />
-          {error.message && (
-            <p className="text-red-500 text-sm mt-1">{error.message}</p>
-          )}
+          {error.message && <p className="text-red-500 text-sm mt-1">{error.message}</p>}
           {submitError && <p className="text-red-500">{submitError}</p>}
           {submitSuccess && <p className="text-green-500">Message sent successfully!</p>}
-          <button
+        <button
            disabled={isSubmitting}
            type='submit' 
-           className="bg-blue-600 text-white px-4 py-2 rounded">
-            {isSubmitting ? 'Sending...' : 'Submit'}
-          </button>
-        </form>
+           className="bg-blue-600 text-white px-4 py-2 rounded"
+          >
+           {isSubmitting ? 'Sending...' : 'Submit'}
+        </button>
+      </form>
    </section>
   )
 }
