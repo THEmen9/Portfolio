@@ -63,7 +63,7 @@ export default function Header({name, isDark, toggleTheme,isAuth, setIsAuth}) {
 
        
       </nav>
-      <div className = "flex shrink-0 items-center justify-end gap-2">
+      <div className = "flex shrink-0 text-sm items-center justify-end gap-2">
       {isAuth && (
           <NavLink
             to="/admin"
@@ -78,17 +78,16 @@ export default function Header({name, isDark, toggleTheme,isAuth, setIsAuth}) {
             <button
               type="button"
               onClick={handleLogout}
-              className="rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm 
-              text-gray-700 transition hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800
-              dark:text-gray-200 dark:hover:bg-gray-700"
+              className='rounded-full bg-[#C197D2]/20 px-3 py-1.5 font-semibold text-[#8B5A9B]
+              dark:bg-[#C197D2]/20 dark:text-[#C197D2]'
             >
               Logout
             </button>
           ) : (
             <NavLink
               to="/login"
-              className={({ isActive }) => isActive ? 'rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm text-gray-700 transition hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-700' : 
-              'rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm text-gray-700 transition hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-700'}
+              className={({ isActive }) => isActive ? 'rounded-full bg-[#C197D2]/20 px-3 py-1.5 font-semibold text-[#8B5A9B] dark:bg-[#C197D2]/20 dark:text-[#C197D2]'
+              : 'rounded-full px-3 py-1.5 text-gray-600 hover:text-blue-500'}
             >
               Admin
             </NavLink>
