@@ -17,17 +17,29 @@ import {
 
 
 export default function App() {
-
   const [isAuth, setIsAuth] = useState(false);
-//--------darkmodeToggle
-  const[isDark, setIsDark]=useState(false)
+
+//--------darkmodeToggle-----------------//
+  const [isDark, setIsDark] = useState(() => {
+    const saved = localStorage.getItem("theme");
+    return saved ? saved === "dark" : true;
+  });
 
   function toggleTheme() {
     setIsDark(!isDark);
   }
     
   useEffect(() => {
+    if (isDark) {
+      document.documentElement.classList.add('dark');
+      localStorage.setItem("theme", "dark");
+    } else {
+      document.documentElement.classList.remove('dark');
+      localStorage.setItem("theme", "light");
+    }
+  }, [isDark]); 
 
+  useEffect(() => {
     const checkAuth = async () => {
       try {
         const response = await fetch("http://localhost:5000/api/admin/verify-token", {
@@ -39,15 +51,8 @@ export default function App() {
         setIsAuth(false);
       }
     };
-
-    if (isDark) {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-    }
     checkAuth();
-
-  }, [isDark]); 
+  }, []);
 
   return (
     <div className='min-h-screen'>
