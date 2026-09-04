@@ -1,10 +1,23 @@
 import { Link } from 'react-router-dom';
 import useFetch from '../hooks/useFetch'
+import React,{useState, useEffect} from 'react';
+import IntroLoader from '../components/IntroLoader.jsx';
 
 
-function Home() {
+export default function Home() {
 
+const [showLoader, setShowLoader] = useState(() => {
+  return !sessionStorage.getItem("hasSeenIntro");
+});
+  
 const { data: projects, isLoading, error } = useFetch("http://localhost:5000/api/projects/featured");
+
+useEffect(() => {
+  if (!showLoader) return; 
+    sessionStorage.setItem("hasSeenIntro", "true");
+    const timer = setTimeout(() => setShowLoader(false), 5600);
+    return () => clearTimeout(timer);
+  }, []);
 
   let content;
       if(isLoading) {
@@ -52,6 +65,8 @@ const { data: projects, isLoading, error } = useFetch("http://localhost:5000/api
        )
      }
     return (
+    <>
+      {showLoader && <IntroLoader />}
       <section className="bg-white dark:bg-gray-900 text-black dark:text-white p-4">
         <h2 >Projects</h2>
          {content}
@@ -62,7 +77,8 @@ const { data: projects, isLoading, error } = useFetch("http://localhost:5000/api
           View My Work
        </Link>
       </section>
+    </>
+
     );
 }
 
-export default Home;
