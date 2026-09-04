@@ -78,8 +78,7 @@ export default function Header({name, isDark, toggleTheme,isAuth, setIsAuth}) {
             <button
               type="button"
               onClick={handleLogout}
-              className='rounded-full bg-[#C197D2]/20 px-3 py-1.5 font-semibold text-[#8B5A9B]
-              dark:bg-[#C197D2]/20 dark:text-[#C197D2]'
+              className='rounded-full px-3 py-1.5 text-gray-600 hover:text-blue-500'
             >
               Logout
             </button>
