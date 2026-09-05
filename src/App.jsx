@@ -55,9 +55,14 @@ export default function App() {
   }, []);
 
   return (
-    <div className='min-h-screen'>
-      <Header name="Mr Ankit" isDark={isDark} toggleTheme={toggleTheme} isAuth={isAuth} setIsAuth={setIsAuth} /> 
+    <div className='relative min-h-screen overflow-hidden'>
 
+    {/* Global blobs - fixed background*/}
+      <div className="absolute w-96 h-96 bg-primary rounded-full blur-3xl opacity-20 -z-10 top-0 left-0" />
+      <div className="absolute w-96 h-96 bg-secondary rounded-full blur-3xl opacity-20 -z-10 bottom-0 right-0" />
+    {/* Header */}
+    <Header name="Mr Ankit" isDark={isDark} toggleTheme={toggleTheme} isAuth={isAuth} setIsAuth={setIsAuth} /> 
+    {/* Main Content */}
     <main className="max-w-4xl mx-auto px-4 space-y-6">
       <Routes>
         <Route path="/login" element={<Login setIsAuth={setIsAuth} />} />

@@ -1,8 +1,9 @@
 import { Link } from 'react-router-dom';
-import useFetch from '../hooks/useFetch'
+import useFetch from '../hooks/useFetch';
 import React,{useState, useEffect} from 'react';
 import IntroLoader from '../components/IntroLoader.jsx';
-
+import profilePic from '../assets/profile.jpeg';
+import Button from '../components/Button.jsx';
 
 export default function Home() {
 
@@ -67,15 +68,42 @@ useEffect(() => {
     return (
     <>
       {showLoader && <IntroLoader />}
-      <section className="bg-white dark:bg-gray-900 text-black dark:text-white p-4">
-        <h2 >Projects</h2>
+
+      {/* Hero section */}
+      <section className="relative overflow-hidden py-20 px-4">
+
+        {/* Glass card - actual content */}
+        <div className="relative z-10 max-w-md mx-auto bg-white/10 backdrop-blur-md border
+        border-white/20 rounded-2xl p-8 text-center">
+          
+          <img 
+            src={profilePic} 
+            alt="Mr. Ankit - Full Stack Developer" 
+            className="w-32 h-32 rounded-full mx-auto object-cover mb-4"
+          />
+          <h1 className="text-2xl font-bold mb-2">Mr. Ankit</h1>
+          <p className="text-sm mb-6">
+            I'm a full-stack developer specializing in the MERN stack, building performant web applications 
+            with React, Node.js, Express, and MongoDB. From RESTful API design to responsive, component-driven
+            UIs, I focus on writing clean, scalable code — with hands-on experience in authentication, cloud media 
+            handling, and real-world deployment workflows.
+          </p>
+          <Link to="/projects">
+            <Button size="md" className="bg-primary text-white">
+              View My Work
+            </Button>
+          </Link>
+
+        </div>
+      </section>
+      {/* Projects section */}
+      <section className= "p-4">
          {content}
-        <Link
-          to="/projects"
-          className="mt-6 inline-block px-5 py-2 bg-blue-600 text-white rounded"
-        >
-          View My Work
-       </Link>
+        <Link to="/contact">
+            <Button size="md" className="bg-primary text-white">
+              Connect With Me
+            </Button>
+          </Link>
       </section>
     </>
 
