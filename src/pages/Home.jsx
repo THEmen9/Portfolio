@@ -29,39 +29,33 @@ useEffect(() => {
         content = (
           <>
             {projects.map((project) => (
-              <Link key={project._id} to={`/projects/${project._id}`}>
-                <div className='mb-4 border bg-gray-100 dark:bg-gray-800
-                 p-2 hover:opacity-80 transition'>
-                  
+            <Link key={project._id} to={`/projects/${project._id}`}>
+              <div className="group border border-white/20 bg-white/5 backdrop-blur-sm rounded-2xl p-3 mb-4 hover:-translate-y-2 hover:shadow-xl transition-all duration-300">
+                
+                <div className="overflow-hidden rounded-lg">
                   {project.images?.[0] && (
                     <img
                       src={project.images[0]}
                       alt={project.title}
-                      className="w-full h-48 object-cover rounded mb-3"
+                      className="w-full h-40 object-cover group-hover:scale-110 transition-transform duration-300"
                     />
                   )}
-  
-                  <h3 className="text-xl font-semibold">
-                    {project.title}
-                  </h3>
-  
-                  <p className="mt-1">
-                    {project.description}
-                  </p>
-  
-                  <div className="flex flex-wrap gap-2 mt-3">
-                    {project.techStack?.map((tech) => (
-                      <span
-                        key={tech}
-                        className="px-2 py-1 text-sm bg-gray-200 dark:bg-gray-700 rounded"
-                      >
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
                 </div>
-              </Link>
-            ))}
+
+                <h3 className="text-lg font-semibold mt-3">{project.title}</h3>
+
+                <p className="text-sm mt-1 line-clamp-2">{project.description}</p>
+
+                <div className="flex flex-wrap gap-1.5 mt-2">
+                  {project.techStack?.map((tech) => (
+                    <span key={tech} className="px-2 py-0.5 text-xs bg-white/10 rounded">
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </Link>
+          ))}
           </>
        )
      }
