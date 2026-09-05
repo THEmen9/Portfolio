@@ -8,7 +8,7 @@ export default function Footer() {
       <p>© 2026 Ankit. All rights reserved.</p>
       <div className="mt-2 flex justify-center gap-4">
         <a
-          href="https://github.com/your-username"
+          href="https://github.com/THEmen9"
           target="_blank"
           rel="noopener noreferrer"
           className="hover:text-blue-500"
@@ -17,7 +17,7 @@ export default function Footer() {
         </a>
 
         <a
-          href="https://linkedin.com/in/your-username"
+          href="https://www.linkedin.com/in/mr-ankit-dev404/"
           target="_blank"
           rel="noopener noreferrer"
           className="hover:text-blue-500"
