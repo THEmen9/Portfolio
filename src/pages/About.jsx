@@ -11,11 +11,29 @@ export default function About() {
   } else if (error) {
     content = <p className='text-red-500'>{error}</p>;
   } else {
-    content = <p>{about.bio}</p>;
+    content = <p className="whitespace-pre-line">{about.bio}</p>;
   }
   return (
-    <section className="bg-white dark:bg-gray-900 text-black dark:text-white p-4">
-        {content}
+    <section className="min-h-screen px-4 py-16">
+      <div className="max-w-3xl mx-auto">
+        
+        <h1 className="text-3xl font-bold text-center mb-8"
+          style={{
+              backgroundImage: 'linear-gradient(to right, var(--primary), var(--secondary))',
+              WebkitBackgroundClip: 'text',
+              backgroundClip: 'text',
+              color: 'transparent'
+            }}
+        >
+          About Me
+        </h1>
+
+        <div className="bg-white/5 backdrop-blur-md border border-white/20 rounded-2xl p-8 
+        leading-relaxed">
+          {content}
+        </div>
+
+      </div>
     </section>
   )
 }
