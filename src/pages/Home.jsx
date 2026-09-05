@@ -30,14 +30,16 @@ useEffect(() => {
           <>
             {projects.map((project) => (
             <Link key={project._id} to={`/projects/${project._id}`}>
-              <div className="group border border-white/20 bg-white/5 backdrop-blur-sm rounded-2xl p-3 mb-4 hover:-translate-y-2 hover:shadow-xl transition-all duration-300">
+              <div className="group border border-white/20 bg-white/5 backdrop-blur-sm rounded-2xl 
+              p-3 mb-4 hover:-translate-y-2 hover:shadow-xl transition-all duration-300">
                 
                 <div className="overflow-hidden rounded-lg">
                   {project.images?.[0] && (
                     <img
                       src={project.images[0]}
                       alt={project.title}
-                      className="w-full h-40 object-cover group-hover:scale-110 transition-transform duration-300"
+                      className="w-full h-40 object-cover group-hover:scale-110 transition-transform 
+                      duration-300"
                     />
                   )}
                 </div>
