@@ -22,55 +22,70 @@ export default function Header({name, isDark, toggleTheme,isAuth, setIsAuth}) {
   };
 
   return (
-    <header className="sticky top-0 z-50 border-b border-gray-200/70
-    bg-[#E9D8E1]/70 text-black backdrop-blur-md
-    dark:border-gray-800/70 dark:bg-gray-950/80 dark:text-white
-    px-4 py-4">
+    <header className="sticky top-0 z-50 border-b bg-white/10 backdrop-blur-md border-white/20
+      px-4 py-4">
 
     <div className="grid grid-cols-3 items-center">
-        <h1 className="text-xl font-bold">{name}'s Portfolio</h1>
+        <h1 className="flex items-center gap-1.5 text-xs uppercase tracking-widest text-muted-foreground">
+          <span>Portfolio</span>
+          <span className="text-muted-foreground">·</span>
+          <span className="text-foreground font-medium">{name}</span>
+        </h1>
 
-      <nav className="flex items-center gap-6 text-sm text-gray-600
-       dark:text-gray-300">
+      <nav className="flex items-center gap-6 text-sm text-muted-foreground">
         <NavLink
           to="/"
-          className={({ isActive }) => isActive ? 'rounded-full bg-[#C197D2]/20 px-3 py-1.5 font-semibold text-[#8B5A9B] dark:bg-[#C197D2]/20 dark:text-[#C197D2]'
-          : 'rounded-full px-3 py-1.5 text-gray-600 hover:text-blue-500'}
+          className={({ isActive }) => isActive ? 'rounded-full px-3 py-1.5 font-semibold  bg-primary/20 text-primary'
+          : 'rounded-full px-3 py-1.5 bg-white/10 border backdrop-blur-md border-white/20'}
         >
-          Home
+            <span className="flex items-center gap-1.5 text-xs uppercase tracking-widest">
+              Home
+            </span>
+
         </NavLink>
         <NavLink
           to="/about"
-          className={({ isActive }) => isActive ? 'rounded-full bg-[#C197D2]/20 px-3 py-1.5 font-semibold text-[#8B5A9B] dark:bg-[#C197D2]/20 dark:text-[#C197D2]'
-          : 'rounded-full px-3 py-1.5 text-gray-600 hover:text-blue-500'}
+          className={({ isActive }) => isActive ? 'rounded-full px-3 py-1.5 font-semibold bg-primary/20 text-primary'
+          : 'rounded-full px-3 py-1.5 bg-white/10 border backdrop-blur-md border-white/20'}
         >
-          About
+          <span className="flex items-center gap-1.5 text-xs uppercase tracking-widest">
+              About
+          </span>
+
         </NavLink>
         <NavLink
           to="/projects"
-          className={({ isActive }) => isActive ? 'rounded-full bg-[#C197D2]/20 px-3 py-1.5 font-semibold text-[#8B5A9B] dark:bg-[#C197D2]/20 dark:text-[#C197D2]'
-          : 'rounded-full px-3 py-1.5 text-gray-600 hover:text-blue-500'}
+          className={({ isActive }) => isActive ? 'rounded-full px-3 py-1.5 font-semibold bg-primary/20 text-primary'
+          : 'rounded-full px-3 py-1.5 bg-white/10 border backdrop-blur-md border-white/20 '}
         >
-          Projects
+          <span className="flex items-center gap-1.5 text-xs uppercase tracking-widest">
+              showcase
+          </span>
+
         </NavLink>
         <NavLink
           to="/contact"
-          className={({ isActive }) => isActive ? 'rounded-full bg-[#C197D2]/20 px-3 py-1.5 font-semibold text-[#8B5A9B] dark:bg-[#C197D2]/20 dark:text-[#C197D2]'
-          : 'rounded-full px-3 py-1.5 text-gray-600 hover:text-blue-500'}
+          className={({ isActive }) => isActive ? 'rounded-full px-3 py-1.5 font-semibold bg-primary/20 text-primary'
+          : 'rounded-full px-3 py-1.5 bg-white/10 border backdrop-blur-md border-white/20'}
         >
-          Contact
+          <span className="flex items-center gap-1.5 text-xs uppercase tracking-widest">
+              Contact
+          </span>
+
         </NavLink>
 
-       
       </nav>
-      <div className = "flex shrink-0 text-sm items-center justify-end gap-2">
+      
+      <div className = "flex shrink-0 text-sm items-center justify-end gap-2 text-muted-foreground">
       {isAuth && (
           <NavLink
             to="/admin"
-            className={({ isActive }) => isActive ? 'rounded-full bg-[#C197D2]/20 px-3 py-1.5 font-semibold text-[#8B5A9B] dark:bg-[#C197D2]/20 dark:text-[#C197D2]'
-            : 'rounded-full px-3 py-1.5 text-gray-600 hover:text-blue-500'}
+            className={({ isActive }) => isActive ? 'rounded-full px-3 py-1.5 font-semibold bg-primary/20 text-primary'
+            : 'rounded-full px-3 py-1.5 bg-white/10 border backdrop-blur-md border-white/20'}
           >
-            Dashboard
+            <span className="flex items-center gap-1.5 text-xs uppercase tracking-widest">
+              dashboard
+            </span>
           </NavLink>
           )}
 
@@ -78,28 +93,34 @@ export default function Header({name, isDark, toggleTheme,isAuth, setIsAuth}) {
             <button
               type="button"
               onClick={handleLogout}
-              className='rounded-full px-3 py-1.5 text-gray-600 hover:text-blue-500'
+              className='rounded-full px-3 py-1.5 bg-white/10 border backdrop-blur-md border-white/20'
             >
-              Logout
+              <span className="flex items-center gap-1.5 text-xs uppercase tracking-widest">
+                logout
+              </span>
+
             </button>
           ) : (
             <NavLink
               to="/login"
-              className={({ isActive }) => isActive ? 'rounded-full bg-[#C197D2]/20 px-3 py-1.5 font-semibold text-[#8B5A9B] dark:bg-[#C197D2]/20 dark:text-[#C197D2]'
-              : 'rounded-full px-3 py-1.5 text-gray-600 hover:text-blue-500'}
+              className={({ isActive }) => isActive ? 'rounded-full px-3 py-1.5 font-semibold bg-primary/20 text-primary'
+              : 'rounded-full px-3 py-1.5 bg-white/10 border backdrop-blur-md border-white/20'}
             >
-              Admin
+            <span className="flex items-center gap-1.5 text-xs uppercase tracking-widest">
+              admin
+            </span>
+
             </NavLink>
           )}
 
           <button
-          type='button'
-          onClick={toggleTheme}
-          className="flex h-9 w-9 items-center justify-center rounded-full border
-          border-gray-300 bg-white text-sm transition hover:bg-gray-100
-          dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700"
-        >
-          {isDark ? "☀️" : "🌙"}
+            type='button'
+            onClick={toggleTheme}
+            className="flex h-9 w-9 items-center justify-center rounded-full 
+            border border-white/20 bg-white/10 backdrop-blur-md text-sm 
+            transition hover:bg-white/20"
+          >
+            {isDark ? "☀️" : "🌙"}
         </button>
 
         </div>  
