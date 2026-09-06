@@ -49,17 +49,19 @@ useEffect(() => {
 
                 <p className="text-sm mt-1 line-clamp-2">{project.description}</p>
 
-                <div className="flex flex-wrap gap-1.5 mt-2">
+                {/* <div className="flex flex-wrap gap-1.5 mt-2">
                   {project.techStack?.map((tech) => (
                     <span key={tech} className="px-2 py-0.5 text-xs bg-white/10 rounded">
                       {tech}
                     </span>
                   ))}
-                </div>
+                </div> */}
+
               </div>
             </Link>
           ))}
-          </>
+          </div>
+        </>
        )
      }
     return (
@@ -70,29 +72,61 @@ useEffect(() => {
       <section className="relative overflow-hidden py-20 px-4">
 
         {/* Glass card - actual content */}
-        <div className="relative z-10 max-w-md mx-auto bg-white/10 backdrop-blur-md border
-        border-white/20 rounded-2xl p-8 text-center">
-          
-          <img 
-            src={profilePic} 
-            alt="Mr. Ankit - Full Stack Developer" 
-            className="w-32 h-32 rounded-full mx-auto object-cover mb-4"
-          />
-          <h1 className="text-2xl font-bold mb-2">Mr. Ankit</h1>
-          <p className="text-sm mb-6">
-            I'm a full-stack developer specializing in the MERN stack, building performant web applications 
-            with React, Node.js, Express, and MongoDB. From RESTful API design to responsive, component-driven
-            UIs, I focus on writing clean, scalable code — with hands-on experience in authentication, cloud media 
-            handling, and real-world deployment workflows.
-          </p>
-          <Link to="/projects">
-            <Button size="md" className="bg-primary text-white">
-              View My Work
-            </Button>
-          </Link>
+        <div className="relative z-10 bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl 
+        p-8 lg:p-12">
+  
+          <div className="flex flex-col lg:flex-row items-center justify-between gap-10">
+            
+            {/* LEFT: Text content */}
+            <div className="flex-1 text-left order-2 lg:order-1">
+              
+              <div className="inline-flex items-center gap-2 rounded-full border border-white/20 
+              bg-white/5 px-4 py-1.5 text-xs mb-6">
+                <span className="h-2 w-2 rounded-full bg-green-400 animate-pulse" />
+                <span className="text-muted-foreground uppercase tracking-wide">Available for work</span>
+              </div>
 
+              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight 
+              mb-4" 
+                style={{
+                  backgroundImage: 'linear-gradient(to right, var(--primary), var(--secondary))',
+                  WebkitBackgroundClip: 'text',
+                  backgroundClip: 'text',
+                  color: 'transparent'
+                }}
+              >
+                Mr. Ankit
+              </h1>
+
+              <p className="text-sm mb-6 max-w-xl">
+               I'm a full-stack developer specializing in the MERN stack, building performant web applications 
+               with React, Node.js, Express, and MongoDB. From RESTful API design to responsive, component-driven
+               UIs, I focus on writing clean, scalable code — with hands-on experience in authentication, cloud media 
+               handling, and real-world deployment workflows.
+              </p>
+
+              <Link to="/projects">
+                <Button size="md" className="bg-primary text-white">View My Work</Button>
+              </Link>
+            </div>
+
+            {/* RIGHT: Portrait image */}
+            <div className="shrink-0 order-1 lg:order-2">
+              <img 
+                src={profilePic} 
+                alt="Mr. Ankit"
+                className="w-64 h-80 lg:w-72 lg:h-96 object-cover rounded-xl"
+                style={{
+                  maskImage: 'radial-gradient(ellipse at center, black 50%, transparent 100%)',
+                  WebkitMaskImage: 'radial-gradient(ellipse at center, black 50%, transparent 100%)'
+                }}
+              />
+            </div>
+
+          </div>
         </div>
       </section>
+
       {/* Projects section */}
       <section className= "p-4">
          {content}
