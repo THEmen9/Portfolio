@@ -4,8 +4,25 @@ import React,{useState, useEffect} from 'react';
 import IntroLoader from '../components/IntroLoader.jsx';
 import profilePic from '../assets/profile.jpeg';
 import Button from '../components/Button.jsx';
+import { SiReact, SiNodedotjs, SiExpress, SiMongodb, SiTailwindcss, 
+         SiJavascript, SiGit, SiShopify, SiCss , SiHtml5, SiCanvas } from "react-icons/si";
 
-export default function Home() {
+  // Skills array for the IconGrid component
+    const skills = [
+    { name: "React", Icon: SiReact, colorLight: "#61DAFB", colorDark: "#61DAFB" },
+    { name: "Node.js", Icon: SiNodedotjs, colorLight: "#339933", colorDark: "#339933" },
+    { name: "Express.js", Icon: SiExpress, colorLight: "#000000", colorDark: "#FFFFFF" },
+    { name: "MongoDB", Icon: SiMongodb, colorLight: "#47A248", colorDark: "#47A248" },
+    { name: "Tailwind CSS", Icon: SiTailwindcss, colorLight: "#06B6D4", colorDark: "#06B6D4" },
+    { name: "JavaScript", Icon: SiJavascript, colorLight: "#F7DF1E", colorDark: "#F7DF1E" },
+    { name: "Git", Icon: SiGit, colorLight: "#F05033", colorDark: "#F05033" },
+    { name: "Shopify", Icon: SiShopify, colorLight: "#96C93D", colorDark: "#96C93D" },
+    { name: "CSS3", Icon: SiCss , colorLight: "#1572B6", colorDark: "#1572B6" },
+    { name: "HTML5", Icon: SiHtml5, colorLight: "#E34C26", colorDark: "#E34C26" },
+    { name: "Canva", Icon: SiCanvas, colorLight: "#00C4CC", colorDark: "#00C4CC" }
+  ];
+
+export default function Home({ isDark }) {
 
 const [showLoader, setShowLoader] = useState(() => {
   return !sessionStorage.getItem("hasSeenIntro");
@@ -37,26 +54,15 @@ useEffect(() => {
                 <div className="aspect-square overflow-hidden rounded-xl">
                   {project.images?.length > 0  && (
                     <img
-                      src={[...project.images].reverse()[0]}
+                      src={project.images[project.images.length - 1]}
                       alt={project.title}
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform 
                       duration-300"
                     />
                   )}
                 </div>
-
                 <h3 className="text-lg font-semibold mt-3">{project.title}</h3>
-
                 <p className="text-sm mt-1 line-clamp-2">{project.description}</p>
-
-                {/* <div className="flex flex-wrap gap-1.5 mt-2">
-                  {project.techStack?.map((tech) => (
-                    <span key={tech} className="px-2 py-0.5 text-xs bg-white/10 rounded">
-                      {tech}
-                    </span>
-                  ))}
-                </div> */}
-
               </div>
             </Link>
           ))}
@@ -69,7 +75,7 @@ useEffect(() => {
       {showLoader && <IntroLoader />}
 
       {/* Hero section */}
-      <section className="relative overflow-hidden py-20 px-4">
+      <section className="relative overflow-hidden space-y-10 p-4 ">
 
         {/* Glass card - actual content */}
         <div className="relative z-10 bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl 
@@ -128,9 +134,39 @@ useEffect(() => {
       </section>
 
       {/* Projects section */}
-      <section className= "p-4">
+      <section className= "p-4 space-y-10">
          {content}
-        <Link to="/contact">
+
+        {/* tech icon grid */}
+         <div className="relative z-10 bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl 
+         p-8 lg:p-12 block">
+              <h2 className="text-2xl sm:text-xl font-bold uppercase tracking-widest text-center mb-6"
+                style={{
+                  backgroundImage: 'linear-gradient(to right, var(--primary), var(--secondary))',
+                  WebkitBackgroundClip: 'text',
+                  backgroundClip: 'text',
+                  color: 'transparent'
+                }}
+              >
+                Tech-Stack
+              </h2>
+              <div className="flex flex-wrap gap-6 items-center justify-center">
+                {skills.map(({ name, Icon, colorLight, colorDark }) => {
+                  const color = isDark ? colorDark : colorLight;
+                  return (
+                    <Icon
+                      key={name}
+                      size={40}
+                      color={color}
+                      style={{ '--glow': color }}
+                      className="hover:drop-shadow-[0_0_8px_var(--glow)] transition-all duration-300"
+                    />
+                  );
+                })}
+              </div>
+         </div>
+
+        <Link to="/contact" className="block">
             <Button size="md" className="bg-primary text-white">
               Connect With Me
             </Button>
