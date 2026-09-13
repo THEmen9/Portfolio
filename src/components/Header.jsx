@@ -4,6 +4,8 @@ import { NavLink, useNavigate } from 'react-router-dom';
 
 export default function Header({name, isDark, toggleTheme,isAuth, setIsAuth}) {
   const navigate = useNavigate();
+  const inactiveLinkClass = "rounded-full px-3 py-1.5 bg-muted/40 border border-border backdrop-blur-md hover:border-primary/50 hover:bg-primary/10 transition-colors duration-300";
+  const activeLinkClass = "rounded-full px-3 py-1.5 font-semibold bg-primary/20 text-primary";
 
   const handleLogout = async () => {
     try{
@@ -22,7 +24,7 @@ export default function Header({name, isDark, toggleTheme,isAuth, setIsAuth}) {
   };
 
   return (
-    <header className="sticky top-0 z-50 border-b bg-white/10 backdrop-blur-md border-white/20
+    <header className="sticky top-0 z-50 border-b bg-white/10 backdrop-blur-md border-border
       px-4 py-4">
 
     <div className="grid grid-cols-3 items-center">
@@ -35,8 +37,7 @@ export default function Header({name, isDark, toggleTheme,isAuth, setIsAuth}) {
       <nav className="flex items-center gap-6 text-sm text-muted-foreground">
         <NavLink
           to="/"
-          className={({ isActive }) => isActive ? 'rounded-full px-3 py-1.5 font-semibold  bg-primary/20 text-primary'
-          : 'rounded-full px-3 py-1.5 bg-white/10 border backdrop-blur-md border-white/20'}
+          className={({ isActive }) => isActive ? activeLinkClass : inactiveLinkClass}
         >
             <span className="flex items-center gap-1.5 text-xs uppercase tracking-widest">
               Home
@@ -45,8 +46,7 @@ export default function Header({name, isDark, toggleTheme,isAuth, setIsAuth}) {
         </NavLink>
         <NavLink
           to="/about"
-          className={({ isActive }) => isActive ? 'rounded-full px-3 py-1.5 font-semibold bg-primary/20 text-primary'
-          : 'rounded-full px-3 py-1.5 bg-white/10 border backdrop-blur-md border-white/20'}
+          className={({ isActive }) => isActive ? activeLinkClass : inactiveLinkClass}
         >
           <span className="flex items-center gap-1.5 text-xs uppercase tracking-widest">
               About
@@ -55,8 +55,7 @@ export default function Header({name, isDark, toggleTheme,isAuth, setIsAuth}) {
         </NavLink>
         <NavLink
           to="/projects"
-          className={({ isActive }) => isActive ? 'rounded-full px-3 py-1.5 font-semibold bg-primary/20 text-primary'
-          : 'rounded-full px-3 py-1.5 bg-white/10 border backdrop-blur-md border-white/20 '}
+          className={({ isActive }) => isActive ? activeLinkClass : inactiveLinkClass}
         >
           <span className="flex items-center gap-1.5 text-xs uppercase tracking-widest">
               showcase
@@ -65,8 +64,7 @@ export default function Header({name, isDark, toggleTheme,isAuth, setIsAuth}) {
         </NavLink>
         <NavLink
           to="/contact"
-          className={({ isActive }) => isActive ? 'rounded-full px-3 py-1.5 font-semibold bg-primary/20 text-primary'
-          : 'rounded-full px-3 py-1.5 bg-white/10 border backdrop-blur-md border-white/20'}
+          className={({ isActive }) => isActive ? activeLinkClass : inactiveLinkClass}
         >
           <span className="flex items-center gap-1.5 text-xs uppercase tracking-widest">
               Contact
@@ -80,8 +78,7 @@ export default function Header({name, isDark, toggleTheme,isAuth, setIsAuth}) {
       {isAuth && (
           <NavLink
             to="/admin"
-            className={({ isActive }) => isActive ? 'rounded-full px-3 py-1.5 font-semibold bg-primary/20 text-primary'
-            : 'rounded-full px-3 py-1.5 bg-white/10 border backdrop-blur-md border-white/20'}
+            className={({ isActive }) => isActive ? activeLinkClass : inactiveLinkClass}
           >
             <span className="flex items-center gap-1.5 text-xs uppercase tracking-widest">
               dashboard
@@ -93,7 +90,8 @@ export default function Header({name, isDark, toggleTheme,isAuth, setIsAuth}) {
             <button
               type="button"
               onClick={handleLogout}
-              className='rounded-full px-3 py-1.5 bg-white/10 border backdrop-blur-md border-white/20'
+              className='rounded-full px-3 py-1.5 bg-muted/40 border border-border backdrop-blur-md 
+              hover:border-primary/50 hover:bg-primary/10 transition-colors duration-300'
             >
               <span className="flex items-center gap-1.5 text-xs uppercase tracking-widest">
                 logout
@@ -103,8 +101,7 @@ export default function Header({name, isDark, toggleTheme,isAuth, setIsAuth}) {
           ) : (
             <NavLink
               to="/login"
-              className={({ isActive }) => isActive ? 'rounded-full px-3 py-1.5 font-semibold bg-primary/20 text-primary'
-              : 'rounded-full px-3 py-1.5 bg-white/10 border backdrop-blur-md border-white/20'}
+              className={({ isActive }) => isActive ? activeLinkClass : inactiveLinkClass}
             >
             <span className="flex items-center gap-1.5 text-xs uppercase tracking-widest">
               admin
@@ -117,8 +114,8 @@ export default function Header({name, isDark, toggleTheme,isAuth, setIsAuth}) {
             type='button'
             onClick={toggleTheme}
             className="flex h-9 w-9 items-center justify-center rounded-full 
-            border border-white/20 bg-white/10 backdrop-blur-md text-sm 
-            transition hover:bg-white/20"
+            border border-white/20 bg-white/10 backdrop-blur-md 
+            hover:border-primary/50 hover:bg-primary/10 transition-colors duration-300"
           >
             {isDark ? "☀️" : "🌙"}
         </button>

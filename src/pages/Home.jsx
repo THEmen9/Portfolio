@@ -87,9 +87,13 @@ useEffect(() => {
             <div className="flex-1 text-left order-2 lg:order-1">
               
               <div className="inline-flex items-center gap-2 rounded-full border border-white/20 
-              bg-white/5 px-4 py-1.5 text-xs mb-6">
+              bg-white/5 px-4 py-1.5 text-xs mb-6 hover:border-primary/50 hover:bg-primary/10 
+              transition-colors duration-300">
                 <span className="h-2 w-2 rounded-full bg-green-400 animate-pulse" />
-                <span className="text-muted-foreground uppercase tracking-wide">Available for work</span>
+                <span className="text-muted-foreground uppercase tracking-wide "
+                >
+                  Available for work
+                </span>
               </div>
 
               <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight 
@@ -112,7 +116,16 @@ useEffect(() => {
               </p>
 
               <Link to="/projects">
-                <Button size="md" className="bg-primary text-white">View My Work</Button>
+                <Button
+                  size="md"
+                  className="rounded-md px-3 py-1.5 bg-muted/40 border border-border backdrop-blur-md 
+                  text-foreground hover:border-primary/50 hover:bg-primary/10 cursor-pointer 
+                  transition-colors duration-300"
+                >
+                  <span className="flex items-center gap-1.5 text-xs uppercase tracking-widest">
+                    view my work
+                  </span>
+                </Button>
               </Link>
             </div>
 
@@ -167,8 +180,15 @@ useEffect(() => {
          </div>
 
         <Link to="/contact" className="block">
-            <Button size="md" className="bg-primary text-white">
-              Connect With Me
+            <Button
+              size="md"
+              className="rounded-md px-3 py-1.5 bg-muted/40 border border-border backdrop-blur-md 
+              text-foreground hover:border-primary/50 hover:bg-primary/10 cursor-pointer 
+              transition-colors duration-300"
+            >
+              <span className="flex items-center gap-1.5 text-xs uppercase tracking-widest">
+                connect with me
+              </span>
             </Button>
           </Link>
       </section>
