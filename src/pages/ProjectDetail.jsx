@@ -18,13 +18,12 @@ export default function ProjectDetail() {
         </>
       );
     } else {
-       console.log(project.images);
       content = (
       <>
-        <div className="relative z-10 max-w-4xl mx-auto bg-white/10 backdrop-blur-md border
-        border-white/20 rounded-2xl p-8">
+        <div className="relative z-10 max-w-5xl mx-auto bg-muted/40 backdrop-blur-md border
+        border-border rounded-2xl p-8">
 
-          <h2 className="text-2xl font-bold text-center mb-8"
+          <h1 className="text-3xl font-bold uppercase tracking-widest text-center mb-8"
             style={{
                 backgroundImage: 'linear-gradient(to right, var(--primary), var(--secondary))',
                 WebkitBackgroundClip: 'text',
@@ -33,7 +32,7 @@ export default function ProjectDetail() {
                   }}
             >
               {project.title}
-          </h2>
+          </h1>
 
           <p className="mt-2">
             {project.description}
@@ -59,7 +58,7 @@ export default function ProjectDetail() {
 
           {/* Tech Stack */}
           <div className="mt-6">
-            <h3 className="text-2xl font-bold text-center mb-8"
+            <h3 className="text-2xl font-bold uppercase tracking-wider text-center mb-8"
               style={{
                   backgroundImage: 'linear-gradient(to right, var(--primary), var(--secondary))',
                   WebkitBackgroundClip: 'text',
@@ -74,7 +73,9 @@ export default function ProjectDetail() {
               {project.techStack?.map((tech) => (
                 <span
                   key={tech}
-                  className="px-2 py-0.5 text-xs bg-white/10 rounded"
+                  className="inline-flex items-center rounded-full border border-border 
+                  bg-muted/40 px-3 py-1 text-xs hover:border-primary/50 hover:bg-primary/10 transition-colors 
+                  duration-300"
                 >
                   {tech}
                 </span>
@@ -87,7 +88,9 @@ export default function ProjectDetail() {
 
             {project.githubLink && (
               <a href={project.githubLink} target="_blank" rel="noreferrer">
-                <Button size="md" className="bg-primary text-white hover:bg-primary/90">
+                <Button size="md" className="rounded-md px-3 py-1.5 bg-muted/40 border border-border 
+                backdrop-blur-md hover:border-primary/50 hover:bg-primary/10 transition-colors duration-300"
+                >
                   GitHub
                 </Button>
               </a>
@@ -95,7 +98,9 @@ export default function ProjectDetail() {
 
             {project.liveDemo && (
               <a href={project.liveDemo} target="_blank" rel="noreferrer">
-                <Button size="md" className="bg-primary text-white hover:bg-primary/90">
+                <Button size="md" className="rounded-md px-3 py-1.5 bg-muted/40 border border-border 
+                backdrop-blur-md hover:border-primary/50 hover:bg-primary/10 transition-colors duration-300"
+                >
                   Live Demo
                 </Button>
               </a>
@@ -109,10 +114,13 @@ export default function ProjectDetail() {
   }
 
   return (
-    <section className="min-h-screen px-4 py-16">
+    <section className="relative overflow-hidden space-y-10 p-4">
       <div className="mb-6">
       <Link to="/projects">
-          <Button size="md" className="bg-primary text-white hover:bg-primary/90">
+          <Button 
+          size="md" 
+          className="rounded-md px-3 py-1.5 bg-muted/40 border border-border 
+          backdrop-blur-md hover:border-primary/50 hover:bg-primary/10 transition-colors duration-300">
              ← Back to Projects
           </Button>
         </Link>

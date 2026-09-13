@@ -48,10 +48,10 @@ useEffect(() => {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {projects.map((project) => (
             <Link key={project._id} to={`/projects/${project._id}`}>
-              <div className="group border border-white/20 bg-white/5 backdrop-blur-sm rounded-2xl 
+              <div className="group border border-boder bg-muted/40 backdrop-blur-sm rounded-2xl 
               p-3 mb-4 hover:-translate-y-2 hover:shadow-xl transition-all duration-300">
                 
-                <div className="aspect-square overflow-hidden rounded-xl">
+                <div className="aspect-4/4 overflow-hidden rounded-xl">
                   {project.images?.length > 0  && (
                     <img
                       src={project.images[project.images.length - 1]}

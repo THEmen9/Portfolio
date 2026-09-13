@@ -122,16 +122,14 @@ export function GooeyInput({
   }, [searchText, setExpanded]);
 
   const surfaceClass =
-    "bg-foreground text-background shadow-sm ring-1 ring-border/60";
+     "bg-muted/40 backdrop-blur-md border border-border text-foreground shadow-sm";
 
   return (
     <div
       className={cn("relative flex items-center justify-center", className, classNames?.root)}>
-      <GooeyFilter filterId={filterId} blur={gooeyBlur} />
 
       <div
-        className={cn("relative flex h-10 items-center justify-center", classNames?.filterWrap)}
-        style={{ filter: `url(#${filterId})` }}>
+        className={cn("relative flex h-10 items-center justify-center", classNames?.filterWrap)}>
         <motion.div
           className={cn("flex h-10 items-center justify-center", classNames?.buttonRow)}
           variants={buttonVariants}
@@ -162,10 +160,10 @@ export function GooeyInput({
               disabled={disabled || !isExpanded}
               placeholder={placeholder}
               className={cn(
-                "h-full min-w-0 flex-1 bg-transparent text-sm text-background outline-none",
+                "h-full min-w-0 flex-1 bg-transparent text-sm text-foreground outline-none",
                 isExpanded
-                  ? "placeholder:text-background/50 dark:placeholder:text-background/45"
-                  : "pointer-events-none placeholder:text-background/80 dark:placeholder:text-background/70",
+                  ? "placeholder:text-foreground/50"
+                  : "pointer-events-none placeholder:text-foreground/80",
                 classNames?.input
               )} />
           </button>
