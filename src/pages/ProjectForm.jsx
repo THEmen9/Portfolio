@@ -14,6 +14,9 @@ export default function ProjectForm() {
   const [isDeleting, setIsDeleting] = useState(false);
   const [errors, setErrors] = useState({});
 
+  const inputClass = "w-full p-2.5 rounded-lg bg-muted/40 border border-border backdrop-blur-md placeholder:text-muted-foreground focus:outline-none focus:border-primary/50 transition-colors duration-300";
+
+
   const { data: fetchedProject, isLoading, error } = useFetch(
     `http://localhost:5000/api/projects/${id}`,
      isEditMode
@@ -143,15 +146,19 @@ if (isEditMode && isLoading) {
   return <p>Loading...</p>;
 }
 if (isEditMode && error) {
-  return <p className="text-red-500">{error}</p>;
+  return <p className="text-destructive text-sm">{error}</p>;
 }
 
   return (
-    <section className="bg-white dark:bg-gray-900 text-black dark:text-white p-6">
+    <section className="relative overflow-hidden p-4">
+      <div className="max-w-5xl mx-auto space-y-8">
+
+        <div className="bg-muted/40 backdrop-blur-md border border-border rounded-2xl p-8 lg:p-12 
+       text-foreground">
         <form className ='space-y-4 mt-4'onSubmit={handleSubmit} >
         {/* //-------------------------------Div-1--------------------------------// */}
           <div> 
-            <label htmlFor="title" className="block mb-1 font-medium">
+            <label htmlFor="title" className="block mb-1 tracking-widest font-medium">
               Project Title
             </label >
             <input
@@ -161,15 +168,15 @@ if (isEditMode && error) {
               placeholder="title"
               value={formData.title}
               onChange={handleChange}
-              className='w-full p-2 border rounded'
+              className={inputClass}
             />
             {errors.title && (
-                <p className="text-red-500 text-sm mt-1">{errors.title}</p>
+                <p className="text-destructive text-sm mt-1">{errors.title}</p>
             )}
           </div>
         {/* //----------------------------------Div-2---------------------------------// */}
           <div>
-            <label htmlFor="description" className="block mb-1 font-medium">
+            <label htmlFor="description" className="block mb-1 font-medium tracking-widest">
               Description
             </label >
             <textarea
@@ -178,15 +185,15 @@ if (isEditMode && error) {
               placeholder="description"
               value={formData.description}
               onChange={handleChange}
-              className="w-full p-2 border rounded"
+              className={inputClass}
             />
             {errors.description && (
-                <p className="text-red-500 text-sm mt-1">{errors.description}</p>
+                <p className="text-destructive text-sm mt-1">{errors.description}</p>
             )}
           </div>
          {/* //----------------------------------Div-3---------------------------------// */}
           <div>
-           <label htmlFor="images" className="block mb-1 font-medium">
+           <label htmlFor="images" className="block mb-1 tracking-widest font-medium">
               Images
             </label >
             <input
@@ -195,10 +202,10 @@ if (isEditMode && error) {
               multiple 
               name='images'
               onChange={handleFileChange}
-              className='w-full p-2 border rounded'
+              className={inputClass}
             />
             {errors.images && (
-                <p className="text-red-500 text-sm mt-1">{errors.images}</p>
+                <p className="text-destructive text-sm mt-1">{errors.images}</p>
             )}
           {/* --------preview section-------------------*/}
             <div className="flex flex-wrap gap-2 mt-2">
@@ -223,7 +230,7 @@ if (isEditMode && error) {
           </div>
          {/* //----------------------------------Div-4---------------------------------// */}
           <div>
-            <label htmlFor="techStack" className="block mb-1 font-medium">
+            <label htmlFor="techStack" className="block mb-1 tracking-widest font-medium">
               Tech-Stack
             </label >
             <input
@@ -233,15 +240,15 @@ if (isEditMode && error) {
               placeholder="techStack"
               value={formData.techStack}
               onChange={handleChange}
-              className='w-full p-2 border rounded'
+              className={inputClass}
             />
             {errors.techStack && (
-                <p className="text-red-500 text-sm mt-1">{errors.techStack}</p>
+                <p className="text-destructive text-sm mt-1">{errors.techStack}</p>
             )}
           </div>
          {/* //----------------------------------Div-4---------------------------------// */}
           <div>
-            <label htmlFor="githubLink" className="block mb-1 font-medium">
+            <label htmlFor="githubLink" className="block mb-1 tracking-widest font-medium">
               Github-Link(Optional)
             </label >
             <input
@@ -251,12 +258,12 @@ if (isEditMode && error) {
               placeholder="githubLink" 
               value={formData.githubLink}
               onChange={handleChange}
-              className='w-full p-2 border rounded'
+              className={inputClass}
             />
           </div>
          {/* //----------------------------------Div-5---------------------------------// */}
           <div>
-            <label htmlFor="liveDemo" className="block mb-1 font-medium">
+            <label htmlFor="liveDemo" className="block mb-1 tracking-widest font-medium">
               liveDemo(Optional)
             </label >
             <input
@@ -266,35 +273,45 @@ if (isEditMode && error) {
               placeholder="liveDemo URL" 
               value={formData.liveDemo}
               onChange={handleChange}
-              className='w-full p-2 border rounded'
+              className={inputClass}
             />
           </div>
           {/* //----------------------------------Button-1------------------------------// */}
+          <div className="flex justify-between mt-6">
           <Button
             type = "submit"
             size="sm"
-            className="bg-blue-500"
+            className="rounded-md px-4 py-2 text-xs uppercase tracking-widest bg-muted/40 border 
+            border-border backdrop-blur-md hover:border-primary/50 hover:bg-primary/10 transition-colors 
+            duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+
             disabled={submitStatus === "submitting"}
             >
             {submitStatus === "submitting" ? "Saving..." : "Save"}
             </Button>
+
           {/* //--------------------------Success/failed-message-----------------------// */}
             {submitStatus === "success" && <p className="text-green-500">Saved successfully!</p>}
-            {submitStatus === "error" && <p className="text-red-500">Failed to save.</p>}
+            {submitStatus === "error" && <p className="text-destructive text-sm">Failed to save.</p>}
 
           {/* //----------------------------------Button-2-----------------------------// */}
             {isEditMode && (
             <Button 
             type="button"
             size="sm" 
-            className="bg-red-500" 
+            className="rounded-md px-4 py-2 text-xs uppercase tracking-widest bg-muted/40 border 
+            border-border backdrop-blur-md hover:border-destructive/50 hover:bg-destructive/20 transition-colors 
+            duration-300 disabled:opacity-50 disabled:cursor-not-allowed" 
             onClick={handleDelete}
             disabled={isDeleting}
             >
             {isDeleting ? "Deleting..." : "Delete"}
         </Button>
         )}
+        </div>
         </form>
+        </div>
+      </div>
     </section>
   )
 }
