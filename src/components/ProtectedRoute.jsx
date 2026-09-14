@@ -10,7 +10,7 @@ export default function ProtectedRoute({ element }) {
     console.log('ProtectedRoute checking token...');
   const verifyToken = async () => {
     try {
-      const response = await fetch(`${API_URL}/api/admn/verify-token`, {
+      const response = await fetch(`${API_URL}/api/admin/verify-token`, {
         credentials: "include",
       });
       
