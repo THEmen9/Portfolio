@@ -9,7 +9,7 @@ export default function About() {
   if (isLoading) {
     content = <p>Loading content...</p>;
   } else if (error) {
-    content = <p className='text-red-500'>{error}</p>;
+    content = <p className='text-destructive text-sm'>{error}</p>;
   } else {
     content = (<>
       <div className="space-y-8">
