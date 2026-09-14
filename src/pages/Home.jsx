@@ -88,7 +88,7 @@ useEffect(() => {
               
               <div className="inline-flex items-center gap-2 rounded-full border border-white/20 
               bg-white/5 px-4 py-1.5 text-xs mb-6 hover:border-primary/50 hover:bg-primary/10 
-              transition-colors duration-300">
+              transition-colors duration-300 tracking-widest">
                 <span className="h-2 w-2 rounded-full bg-green-400 animate-pulse" />
                 <span className="text-muted-foreground uppercase tracking-wide "
                 >
@@ -108,7 +108,7 @@ useEffect(() => {
                 Mr. Ankit
               </h1>
 
-              <p className="text-sm mb-6 max-w-xl">
+              <p className="text-sm mb-6 max-w-xl tracking-wider">
                I'm a full-stack developer specializing in the MERN stack, building performant web applications 
                with React, Node.js, Express, and MongoDB. From RESTful API design to responsive, component-driven
                UIs, I focus on writing clean, scalable code — with hands-on experience in authentication, cloud media 
