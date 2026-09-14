@@ -9,12 +9,12 @@ export default function AdminDashboard(){
     const [projectList, setProjectList] = useState([]);
     const navigate = useNavigate();
     const { data: projects, isLoading, error } = useFetch(
-      `${API_URL}/api/api/projects?limit=1000`
+      `${API_URL}/api/projects?limit=1000`
     );
     
     const handleToggleFeatured = async (projectId, currentValue) => {
       try {
-        const response = await fetch(`${API_URL}/projects/${projectId}/featured`,{
+        const response = await fetch(`${API_URL}/api/projects/${projectId}/featured`,{
           method: "PATCH",
           credentials: "include",
           headers: { "Content-Type": "application/json" },

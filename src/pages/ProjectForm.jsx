@@ -113,7 +113,7 @@ const handleDelete = async () => {
         return;
         }
         setIsDeleting(true);
-        const response = await fetch(`${API_URL}/api/api/projects/${id}`,{
+        const response = await fetch(`${API_URL}/api/projects/${id}`,{
             method: "DELETE",
             credentials: "include",
             
