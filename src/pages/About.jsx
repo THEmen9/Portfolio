@@ -1,8 +1,9 @@
 import useFetch from '../hooks/useFetch'
 import Button from '../components/Button'
+import { API_URL } from "../config/api";
 
 export default function About() {
-  const { data: about, isLoading, error } = useFetch("http://localhost:5000/api/about");
+  const { data: about, isLoading, error } = useFetch(`${API_URL}/api/about`);
 
   let content;
 

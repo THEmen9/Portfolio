@@ -148,7 +148,7 @@ export default function Footer() {
                 })
               }
               className="transition-colors duration-300
-              hover:text-primary cursor-pointer"
+              hover:text-primary cursor-pointer tracking-widest"
             >
               Back to top ↑
             </button>

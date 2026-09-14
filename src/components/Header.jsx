@@ -2,6 +2,8 @@ import React from "react";
 import { NavLink, useNavigate } from 'react-router-dom';
 import useScrollActive from "../hooks/useScrollActive";
 import BottomNav from "./BottomNav";
+import { API_URL } from "../config/api";
+
 
 
 export default function Header({name, isDark, toggleTheme,isAuth, setIsAuth}) {
@@ -12,7 +14,7 @@ export default function Header({name, isDark, toggleTheme,isAuth, setIsAuth}) {
 
   const handleLogout = async () => {
     try{
-      const response = await fetch("http://localhost:5000/api/admin/logout", {
+      const response = await fetch(`${API_URL}/api/admin/logout`, {
         method: "POST",
         credentials: "include",
       });

@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { useParams, useNavigate  } from "react-router-dom";
 import useFetch from '../hooks/useFetch'
 import Button from "../components/Button";
+import { API_URL } from "../config/api";
 
 
 export default function ProjectForm() {
@@ -18,7 +19,7 @@ export default function ProjectForm() {
 
 
   const { data: fetchedProject, isLoading, error } = useFetch(
-    `http://localhost:5000/api/projects/${id}`,
+    `${API_URL}/api/projects/${id}`,
      isEditMode
     );
   const [imageFiles, setImageFiles] = useState([]);
@@ -86,8 +87,8 @@ export default function ProjectForm() {
   try {
     const response = await fetch(
       isEditMode
-      ? `http://localhost:5000/api/projects/${id}`
-      : "http://localhost:5000/api/projects",
+      ? `${API_URL}/api/projects/${id}`
+      : `${API_URL}/api/projects`,
       {
         method: isEditMode ? "PUT" : "POST",
         credentials: "include",
@@ -112,7 +113,7 @@ const handleDelete = async () => {
         return;
         }
         setIsDeleting(true);
-        const response = await fetch(`http://localhost:5000/api/projects/${id}`,{
+        const response = await fetch(`${API_URL}/api/api/projects/${id}`,{
             method: "DELETE",
             credentials: "include",
             

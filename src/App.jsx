@@ -3,6 +3,7 @@ import { Routes, Route } from 'react-router-dom'
 import Header from './components/Header.jsx'
 import Footer from './components/Footer.jsx';
 import ProtectedRoute from "./components/ProtectedRoute";
+import { API_URL } from "./config/api.js";
 
 
 import {
@@ -43,7 +44,7 @@ export default function App() {
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        const response = await fetch("http://localhost:5000/api/admin/verify-token", {
+        const response = await fetch(`${API_URL}/api/admin/verify-token`, {
           credentials: "include",
         });
         const data = await response.json();

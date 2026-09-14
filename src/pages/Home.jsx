@@ -3,6 +3,7 @@ import useFetch from '../hooks/useFetch';
 import React,{useState, useEffect} from 'react';
 import IntroLoader from '../components/IntroLoader.jsx';
 import profilePic from '../assets/profile.jpeg';
+import { API_URL } from "../config/api";
 import Button from '../components/Button.jsx';
 import { SiReact, SiNodedotjs, SiExpress, SiMongodb, SiTailwindcss, 
          SiJavascript, SiGit, SiShopify, SiCss , SiHtml5, SiCanvas } from "react-icons/si";
@@ -28,7 +29,7 @@ const [showLoader, setShowLoader] = useState(() => {
   return !sessionStorage.getItem("hasSeenIntro");
 });
   
-const { data: projects, isLoading, error } = useFetch("http://localhost:5000/api/projects/featured");
+const { data: projects, isLoading, error } = useFetch(`${API_URL}/api/projects/featured`);
 
 useEffect(() => {
   if (!showLoader) return; 

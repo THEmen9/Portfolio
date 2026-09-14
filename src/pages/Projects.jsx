@@ -2,6 +2,7 @@ import React,{useState, useEffect, useRef} from 'react';
 import { Link } from 'react-router-dom';
 import { GooeyInput } from "../components/ui/gooey-input";
 import Button from "../components/Button";
+import { API_URL } from "../config/api";
 
  export default function Projects() {
     const[allProjects, setAllProjects] = useState([]); 
@@ -15,7 +16,7 @@ import Button from "../components/Button";
     setLoadingMore(true);
     setError(null); 
     try {
-      const response = await fetch(`http://localhost:5000/api/projects?limit=6&skip=${skipValue}`);
+      const response = await fetch(`${API_URL}/api/projects?limit=6&skip=${skipValue}`);
       const result = await response.json();
 
       setTotalCount(result.totalCount);

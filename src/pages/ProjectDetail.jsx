@@ -2,11 +2,12 @@ import React, {useEffect, useState} from 'react'
 import { useParams, Link } from 'react-router-dom'
 import useFetch from '../hooks/useFetch'
 import Button from '../components/Button.jsx';
+import { API_URL } from "../config/api";
 
 
 export default function ProjectDetail() {
   const {id} = useParams()
-  const { data: project, isLoading, error } = useFetch(`http://localhost:5000/api/projects/${id}`);
+  const { data: project, isLoading, error } = useFetch(`${API_URL}/api/projects/${id}`);
   
   let content;
     if (isLoading) {

@@ -1,5 +1,7 @@
 import { Navigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import { API_URL } from "../config/api";
+
 
 export default function ProtectedRoute({ element }) {
   const [isAuth, setIsAuth] = useState(null);
@@ -8,7 +10,7 @@ export default function ProtectedRoute({ element }) {
     console.log('ProtectedRoute checking token...');
   const verifyToken = async () => {
     try {
-      const response = await fetch("http://localhost:5000/api/admin/verify-token", {
+      const response = await fetch(`${API_URL}/api/admn/verify-token`, {
         credentials: "include",
       });
       

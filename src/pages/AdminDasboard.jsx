@@ -2,18 +2,19 @@ import { useNavigate } from "react-router-dom"
 import useFetch from "../hooks/useFetch";
 import Button from "../components/Button"
 import { useState, useEffect } from "react";
+import { API_URL } from "../config/api";
 
 export default function AdminDashboard(){
     const [isDeleting, setIsDeleting] = useState(false);
     const [projectList, setProjectList] = useState([]);
     const navigate = useNavigate();
     const { data: projects, isLoading, error } = useFetch(
-      "http://localhost:5000/api/projects?limit=1000"
+      `${API_URL}/api/api/projects?limit=1000`
     );
     
     const handleToggleFeatured = async (projectId, currentValue) => {
       try {
-        const response = await fetch(`http://localhost:5000/api/projects/${projectId}/featured`,{
+        const response = await fetch(`${API_URL}/projects/${projectId}/featured`,{
           method: "PATCH",
           credentials: "include",
           headers: { "Content-Type": "application/json" },
@@ -36,7 +37,7 @@ export default function AdminDashboard(){
           return;
           }
           setIsDeleting(true);
-          const response = await fetch(`http://localhost:5000/api/projects/${projectId}`,{
+          const response = await fetch(`${API_URL}/api/projects/${projectId}`,{
               method: "DELETE",
               credentials: "include",
               
