@@ -96,7 +96,7 @@ useEffect(() => {
                 </span>
               </div>
 
-              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight 
+              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-wider uppercase 
               mb-4" 
                 style={{
                   backgroundImage: 'linear-gradient(to right, var(--primary), var(--secondary))',
