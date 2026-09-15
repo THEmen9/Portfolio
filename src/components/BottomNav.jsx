@@ -27,7 +27,7 @@ export default function BottomNav({ isAuth, handleLogout, isVisible }) {
       ) : (
         <div className="flex items-center justify-between">
           <NavLink to="/login" className={({ isActive }) => isActive ? mobileActivePill : mobileInactivePill}>
-            <span className="text-[10px] uppercase tracking-widest">login</span>
+            <span className="text-[10px] uppercase tracking-widest">admin</span>
           </NavLink>
              <span className="text-[10px] uppercase tracking-widest text-primary">Portfolio</span>
         </div>
