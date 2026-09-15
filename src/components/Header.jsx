@@ -3,14 +3,18 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import useScrollActive from "../hooks/useScrollActive";
 import BottomNav from "./BottomNav";
 import { API_URL } from "../config/api";
+import { mobileInactivePill, mobileActivePill } from "../constants/navStyles";
 
 
 
 export default function Header({name, isDark, toggleTheme,isAuth, setIsAuth}) {
   const navigate = useNavigate();
   const isVisible = useScrollActive(2000);
+
+  // desktop-view active/inactive class, resolve repeated ternary //
   const inactiveLinkClass = "rounded-full px-3 py-1.5 bg-muted/40 border border-border backdrop-blur-md hover:border-primary/50 hover:bg-primary/10 transition-colors duration-300";
   const activeLinkClass = "rounded-full px-3 py-1.5 font-semibold bg-primary/20 text-primary";
+  
 
   const handleLogout = async () => {
     try{
@@ -124,56 +128,37 @@ export default function Header({name, isDark, toggleTheme,isAuth, setIsAuth}) {
         </div>  
       </div> 
 
-      {/* Mobile layout*/}
-      <div className="flex lg:hidden items-center justify-between">
-        <span className="text-xs uppercase tracking-widest text-foreground font-medium">{name}</span>
+     {/* Mobile layout*/}
+      <div className="grid grid-cols-[auto_1fr_auto] items-center lg:hidden">
+        <div /> {/* balancing spacer, so nav comes exact in center */}
 
-        <nav className="flex items-center gap-6 text-sm text-muted-foreground">
-        <NavLink
-          to="/"
-          className={({ isActive }) => isActive ? activeLinkClass : inactiveLinkClass}
-        >
-            <span className="flex items-center gap-1.5 text-xs uppercase tracking-widest">
-              Home
-            </span>
-        </NavLink>
+        <nav className="flex items-center justify-center gap-1.5 text-sm text-muted-foreground min-w-0">
+          <NavLink to="/" className={({ isActive }) => isActive ? mobileActivePill : mobileInactivePill}>
+            <span className="text-[10px] uppercase tracking-wide">Home</span>
+          </NavLink>
 
-        <NavLink
-          to="/about"
-          className={({ isActive }) => isActive ? activeLinkClass : inactiveLinkClass}
-        >
-          <span className="flex items-center gap-1.5 text-xs uppercase tracking-widest">
-              About
-          </span>
-        </NavLink>
-        <NavLink
-          to="/projects"
-          className={({ isActive }) => isActive ? activeLinkClass : inactiveLinkClass}
-        >
-          <span className="flex items-center gap-1.5 text-xs uppercase tracking-widest">
-              showcase
-          </span>
-        </NavLink>
+          <NavLink to="/about" className={({ isActive }) => isActive ? mobileActivePill : mobileInactivePill}>
+            <span className="text-[10px] uppercase tracking-wide">About</span>
+          </NavLink>
 
-        <NavLink
-          to="/contact"
-          className={({ isActive }) => isActive ? activeLinkClass : inactiveLinkClass}
-        >
-          <span className="flex items-center gap-1.5 text-xs uppercase tracking-widest">
-              Contact
-          </span>
-        </NavLink>
+          <NavLink to="/projects" className={({ isActive }) => isActive ? mobileActivePill : mobileInactivePill}>
+            <span className="text-[10px] uppercase tracking-wide">Showcase</span>
+          </NavLink>
+
+          <NavLink to="/contact" className={({ isActive }) => isActive ? mobileActivePill : mobileInactivePill}>
+            <span className="text-[10px] uppercase tracking-wide">Contact</span>
+          </NavLink>
         </nav>
 
         <button
-            type='button'
-            onClick={toggleTheme}
-            className="flex h-9 w-9 items-center justify-center rounded-full 
-            border border-white/20 bg-white/10 backdrop-blur-md 
-            hover:border-primary/50 hover:bg-primary/10 transition-colors duration-300"
-          >
-            {isDark ? "☀️" : "🌙"}
-        </button>
+          type='button'
+          onClick={toggleTheme}
+          className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full 
+          border border-white/20 bg-white/10 backdrop-blur-md 
+          hover:border-primary/50 hover:bg-primary/10 transition-colors duration-300"
+        >
+          <span className="leading-none text-xs">{isDark ? "☀️" : "🌙"}</span>
+      </button>
       </div>
     </header>
     <BottomNav isAuth={isAuth} handleLogout={handleLogout} isVisible={isVisible} />
