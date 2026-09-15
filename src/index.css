@@ -136,6 +136,12 @@ html {
     @apply font-sans;
   }
 }
+
+/* global horizontal-overflow containment */
+html, body {
+  overflow-x: clip;
+}
+
 /* keyframes  */
 @keyframes fade-in-scale {
   from {
